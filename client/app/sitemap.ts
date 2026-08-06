@@ -1,46 +1,37 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://vidnova.ai";
-
   return [
     {
-      url: base,
+      url: "https://videoseotools.com",
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
     },
 
     {
-      url: `${base}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${base}/youtube/title-generator`,
+      url: "https://videoseotools.com/youtube/title-generator",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: `${base}/youtube/description-generator`,
+      url: "https://videoseotools.com/youtube/description-generator",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: `${base}/youtube/tags-generator`,
+      url: "https://videoseotools.com/youtube/tags-generator",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
 
     {
-      url: `${base}/youtube/hashtag-generator`,
+      url: "https://videoseotools.com/youtube/hashtag-generator",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,

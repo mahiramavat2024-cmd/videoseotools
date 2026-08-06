@@ -13,50 +13,62 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vidnova.ai"),
+  metadataBase: new URL("https://videoseotools.com"),
 
   title: {
-    default: "VidNova - AI YouTube SEO Tools",
-    template: "%s | VidNova",
+    default: "VideoSEOTools - AI SEO Tools for Video Creators",
+    template: "%s | VideoSEOTools",
   },
 
   description:
-    "Generate AI-powered YouTube titles, descriptions, tags and hashtags instantly. Free SEO tools for creators.",
+    "Free AI-powered SEO tools for video creators. Generate YouTube titles, descriptions, tags, hashtags, scripts, hooks, and more to grow your videos faster.",
 
   keywords: [
+    "Video SEO Tools",
+    "YouTube SEO Tools",
+    "AI SEO Tools",
     "YouTube Title Generator",
     "YouTube Description Generator",
     "YouTube Tags Generator",
     "YouTube Hashtag Generator",
-    "AI YouTube Tools",
+    "AI Video Tools",
+    "Content Creator Tools",
+    "Video SEO",
     "YouTube SEO",
-    "VidNova",
     "AI Content Generator",
   ],
 
   authors: [
     {
-      name: "VidNova",
+      name: "VideoSEOTools",
     },
   ],
 
-  creator: "VidNova",
+  creator: "VideoSEOTools",
 
-  publisher: "VidNova",
+  publisher: "VideoSEOTools",
 
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 
   openGraph: {
-    title: "VidNova - AI YouTube SEO Tools",
+    title: "VideoSEOTools - AI SEO Tools for Video Creators",
+
     description:
-      "Generate SEO optimized YouTube titles, descriptions, tags and hashtags using AI.",
+      "Generate AI-powered YouTube titles, descriptions, tags, hashtags, scripts and more with free SEO tools.",
 
-    url: "https://vidnova.ai",
+    url: "https://videoseotools.com",
 
-    siteName: "VidNova",
+    siteName: "VideoSEOTools",
 
     locale: "en_US",
 
@@ -66,14 +78,16 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "VidNova",
+    title: "VideoSEOTools",
 
     description:
-      "Free AI YouTube SEO Tools for Content Creators.",
+      "Free AI SEO Tools for YouTube & Video Creators.",
   },
 
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 

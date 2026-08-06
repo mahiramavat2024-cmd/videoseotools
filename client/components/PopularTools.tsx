@@ -10,12 +10,12 @@ export default function PopularTools() {
 
         <div className="text-center">
           <h2 className="text-5xl font-bold">
-            Popular AI Tools
+            Popular AI SEO Tools
           </h2>
 
-          <p className="mt-4 text-gray-400 text-lg">
-            Everything you need to grow on YouTube,
-            Instagram, TikTok, Facebook and Vimeo.
+          <p className="mt-4 text-lg text-zinc-400">
+            Free AI-powered SEO tools to help video creators generate
+            better titles, descriptions, tags and hashtags.
           </p>
         </div>
 
@@ -23,58 +23,30 @@ export default function PopularTools() {
 
           <ToolCard
             emoji="🎬"
-            title="YouTube Title"
+            title="Title Generator"
             description="Generate high CTR YouTube titles."
             href="/youtube/title-generator"
           />
 
           <ToolCard
             emoji="📝"
-            title="Description"
-            description="SEO optimized video descriptions."
-            href="#"
-          />
-
-          <ToolCard
-            emoji="#️⃣"
-            title="Hashtags"
-            description="Trending hashtags instantly."
-            href="#"
-          />
-
-          <ToolCard
-            emoji="📸"
-            title="Instagram Caption"
-            description="Generate viral Instagram captions."
-            href="/instagram-caption-generator"
-          />
-
-          <ToolCard
-            emoji="🎵"
-            title="TikTok Caption"
-            description="AI captions for TikTok videos."
-            href="#"
-          />
-
-          <ToolCard
-            emoji="📘"
-            title="Facebook Post"
-            description="Create engaging Facebook posts."
-            href="#"
-          />
-
-          <ToolCard
-            emoji="🎥"
-            title="Vimeo SEO"
-            description="Optimize your Vimeo videos."
-            href="#"
+            title="Description Generator"
+            description="Generate SEO-friendly descriptions."
+            href="/youtube/description-generator"
           />
 
           <ToolCard
             emoji="🏷️"
             title="Tags Generator"
-            description="Generate powerful SEO tags."
-            href="#"
+            description="Generate powerful YouTube tags."
+            href="/youtube/tags-generator"
+          />
+
+          <ToolCard
+            emoji="#️⃣"
+            title="Hashtag Generator"
+            description="Generate trending hashtags instantly."
+            href="/youtube/hashtag-generator"
           />
 
         </div>

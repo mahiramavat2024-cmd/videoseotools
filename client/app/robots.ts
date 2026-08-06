@@ -7,8 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
 
-    sitemap: "https://vidnova.ai/sitemap.xml",
-
-    host: "https://vidnova.ai",
+    sitemap: "https://videoseotools.com/sitemap.xml",
   };
 }
