@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -11,26 +10,15 @@ export default function Footer() {
           {/* Brand */}
           <div className="max-w-md">
 
-            <div className="flex items-center gap-3">
-
-              <Image
-                src="/logo.png"
-                alt="VideoSEOTools Logo"
-                width={42}
-                height={42}
-              />
-
-              <h2 className="text-2xl font-bold text-cyan-400">
-                VideoSEOTools
-              </h2>
-
-            </div>
+            <h2 className="text-2xl font-bold text-cyan-400">
+              VideoSEOTools
+            </h2>
 
             <p className="mt-4 text-sm leading-7 text-zinc-400">
-              VideoSEOTools is a free AI-powered platform built for YouTube
-              creators, marketers and content creators. Generate SEO-optimized
-              titles, descriptions, tags, hashtags, hooks and scripts in
-              seconds.
+              VideoSEOTools is a free AI-powered platform built for
+              YouTube creators, marketers and content creators.
+              Generate SEO-optimized titles, descriptions, tags,
+              hashtags, hooks and scripts in seconds.
             </p>
 
           </div>
@@ -44,34 +32,30 @@ export default function Footer() {
 
             <div className="flex flex-col gap-3 text-sm">
 
-              <Link href="/" className="hover:text-cyan-400 transition">
+              <Link
+                href="/"
+                className="transition hover:text-cyan-400"
+              >
                 Home
               </Link>
 
               <Link
                 href="/youtube/title-generator"
-                className="hover:text-cyan-400 transition"
+                className="transition hover:text-cyan-400"
               >
                 Title Generator
               </Link>
 
               <Link
-                href="/pricing"
-                className="hover:text-cyan-400 transition"
-              >
-                Pricing
-              </Link>
-
-              <Link
                 href="/about"
-                className="hover:text-cyan-400 transition"
+                className="transition hover:text-cyan-400"
               >
                 About
               </Link>
 
               <Link
                 href="/contact"
-                className="hover:text-cyan-400 transition"
+                className="transition hover:text-cyan-400"
               >
                 Contact
               </Link>
@@ -91,14 +75,14 @@ export default function Footer() {
 
               <Link
                 href="/privacy"
-                className="hover:text-cyan-400 transition"
+                className="transition hover:text-cyan-400"
               >
                 Privacy Policy
               </Link>
 
               <Link
                 href="/terms"
-                className="hover:text-cyan-400 transition"
+                className="transition hover:text-cyan-400"
               >
                 Terms & Conditions
               </Link>
