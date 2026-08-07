@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -5,43 +6,55 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-[#08111f]/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 
+        {/* Logo */}
         <Link
           href="/"
-          className="text-2xl font-extrabold tracking-tight text-cyan-400"
+          className="flex items-center gap-3"
         >
-          VideoSEOTools
+          <Image
+            src="/logo.png"
+            alt="VideoSEOTools Logo"
+            width={42}
+            height={42}
+            priority
+          />
+
+          <span className="text-2xl font-extrabold tracking-tight text-cyan-400">
+            VideoSEOTools
+          </span>
         </Link>
 
+        {/* Menu */}
         <div className="flex items-center gap-6 text-sm font-medium">
 
-          <Link href="/" className="hover:text-cyan-400 transition">
+          <Link href="/" className="transition hover:text-cyan-400">
             Home
           </Link>
 
           <Link
             href="/youtube/title-generator"
-            className="hover:text-cyan-400 transition"
+            className="transition hover:text-cyan-400"
           >
             Title Generator
           </Link>
 
           <Link
             href="/youtube/description-generator"
-            className="hover:text-cyan-400 transition"
+            className="transition hover:text-cyan-400"
           >
             Description
           </Link>
 
           <Link
             href="/youtube/tags-generator"
-            className="hover:text-cyan-400 transition"
+            className="transition hover:text-cyan-400"
           >
             Tags
           </Link>
 
           <Link
             href="/youtube/hashtag-generator"
-            className="hover:text-cyan-400 transition"
+            className="transition hover:text-cyan-400"
           >
             Hashtags
           </Link>
@@ -54,6 +67,7 @@ export default function Navbar() {
           </Link>
 
         </div>
+
       </div>
     </nav>
   );
