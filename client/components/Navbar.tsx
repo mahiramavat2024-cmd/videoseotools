@@ -1,26 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-[#08111f]/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-[#08111f]/95 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-
-          <Image
-            src="/logo.png"
-            alt="VideoSEOTools Logo"
-            width={42}
-            height={42}
-            priority
-          />
-
-          <span className="text-2xl font-extrabold tracking-tight text-cyan-400">
-            VideoSEOTools
-          </span>
-
+        {/* Logo Text */}
+        <Link
+          href="/"
+          className="text-2xl font-extrabold tracking-tight text-cyan-400"
+        >
+          VideoSEOTools
         </Link>
 
         {/* Menu */}
@@ -70,13 +60,12 @@ export default function Navbar() {
 
           <Link
             href="/contact"
-            className="rounded-lg bg-cyan-500 px-4 py-2 font-semibold text-black transition hover:bg-cyan-400"
+            className="transition hover:text-cyan-400"
           >
             Contact
           </Link>
 
         </div>
-
       </div>
     </nav>
   );
