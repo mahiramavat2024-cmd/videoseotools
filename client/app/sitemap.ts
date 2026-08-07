@@ -1,37 +1,74 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://videoseotools.com";
+
   return [
     {
-      url: "https://videoseotools.com",
+      url: `${baseUrl}`,
       lastModified: new Date(),
       changeFrequency: "daily",
-      priority: 1,
+      priority: 1.0,
     },
 
     {
-      url: "https://videoseotools.com/youtube/title-generator",
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+
+    {
+      url: `${baseUrl}/login`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+
+    {
+      url: `${baseUrl}/register`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+
+    {
+      url: `${baseUrl}/dashboard`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 0.9,
+      priority: 0.3,
     },
 
     {
-      url: "https://videoseotools.com/youtube/description-generator",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-
-    {
-      url: "https://videoseotools.com/youtube/tags-generator",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-
-    {
-      url: "https://videoseotools.com/youtube/hashtag-generator",
+      url: `${baseUrl}/youtube/title-generator`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
