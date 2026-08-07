@@ -22,7 +22,7 @@ export default function ToolSearch() {
         </h2>
 
         <p className="mt-3 text-center text-gray-400">
-          Search from all available VidNova tools.
+          Search from all available videoseotools tools.
         </p>
 
         <input

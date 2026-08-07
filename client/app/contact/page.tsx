@@ -2,8 +2,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Contact VidNova",
-  description: "Contact the VidNova team for support, feedback, and business inquiries.",
+  title: "Contact videoseotools",
+  description: "Contact the videoseotools team for support, feedback, and business inquiries.",
 };
 
 export default function ContactPage() {
@@ -29,7 +29,7 @@ export default function ContactPage() {
             </h2>
 
             <p className="mt-3 text-zinc-400">
-              support@vidnova.ai
+              support@videoseotools.ai
             </p>
 
             <h2 className="mt-8 text-2xl font-bold">
@@ -37,7 +37,7 @@ export default function ContactPage() {
             </h2>
 
             <p className="mt-3 text-zinc-400">
-              business@vidnova.ai
+              business@videoseotools.ai
             </p>
 
           </div>

@@ -2,9 +2,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Privacy Policy | VidNova",
+  title: "Privacy Policy | videoseotools",
   description:
-    "Read the Privacy Policy of VidNova and learn how we collect, use and protect your information.",
+    "Read the Privacy Policy of videoseotools and learn how we collect, use and protect your information.",
 };
 
 export default function PrivacyPage() {
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           <div className="space-y-6 text-zinc-300 leading-8">
 
             <p>
-              At VidNova, your privacy is important to us.
+              At videoseotools, your privacy is important to us.
             </p>
 
             <p>
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
             </p>
 
             <p>
-              By using VidNova you agree to this Privacy Policy.
+              By using videoseotools you agree to this Privacy Policy.
             </p>
 
           </div>

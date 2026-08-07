@@ -25,25 +25,25 @@ export async function generateMetadata({
 
   if (!currentTool) {
     return {
-      title: "Tool Not Found | VidNova",
+      title: "Tool Not Found | videoseotools",
     };
   }
 
   return {
-    title: `${currentTool.title} | VidNova`,
+    title: `${currentTool.title} | videoseotools`,
     description: currentTool.description,
 
     keywords: currentTool.keywords,
 
     openGraph: {
-      title: `${currentTool.title} | VidNova`,
+      title: `${currentTool.title} | videoseotools`,
       description: currentTool.description,
       type: "website",
     },
 
     twitter: {
       card: "summary_large_image",
-      title: `${currentTool.title} | VidNova`,
+      title: `${currentTool.title} | videoseotools`,
       description: currentTool.description,
     },
   };

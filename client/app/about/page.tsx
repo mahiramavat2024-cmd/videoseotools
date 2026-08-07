@@ -2,9 +2,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "About VidNova",
+  title: "About videoseotools",
   description:
-    "Learn about VidNova, an AI-powered platform helping creators generate SEO-friendly YouTube titles, descriptions, tags, and hashtags.",
+    "Learn about videoseotools, an AI-powered platform helping creators generate SEO-friendly YouTube titles, descriptions, tags, and hashtags.",
 };
 
 export default function AboutPage() {
@@ -16,13 +16,13 @@ export default function AboutPage() {
         <div className="mx-auto max-w-5xl px-6">
 
           <h1 className="text-5xl font-bold mb-8">
-            About VidNova
+            About videoseotools
           </h1>
 
           <div className="space-y-6 text-lg text-zinc-300 leading-8">
 
             <p>
-              VidNova is an AI-powered platform built for YouTube creators,
+              videoseotools is an AI-powered platform built for YouTube creators,
               marketers, businesses, and content creators who want to grow
               faster with better SEO.
             </p>
@@ -34,7 +34,7 @@ export default function AboutPage() {
 
             <p>
               Whether you are a beginner or an experienced creator,
-              VidNova helps you save time while improving your video's
+              videoseotools helps you save time while improving your video's
               visibility and click-through rate.
             </p>
 

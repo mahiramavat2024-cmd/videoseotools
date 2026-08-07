@@ -7,7 +7,7 @@ export default function PremiumLock() {
       <div className="text-6xl">🔒</div>
 
       <h2 className="mt-6 text-4xl font-extrabold">
-        Unlock VidNova PRO
+        Unlock videoseotools PRO
       </h2>
 
       <p className="mt-4 text-lg text-zinc-400">

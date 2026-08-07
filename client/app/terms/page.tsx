@@ -2,9 +2,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Terms & Conditions | VidNova",
+  title: "Terms & Conditions | videoseotools",
   description:
-    "Read the Terms and Conditions for using VidNova AI tools.",
+    "Read the Terms and Conditions for using videoseotools AI tools.",
 };
 
 export default function TermsPage() {
@@ -22,7 +22,7 @@ export default function TermsPage() {
           <div className="space-y-6 text-zinc-300 leading-8">
 
             <p>
-              By using VidNova you agree to use our AI tools responsibly.
+              By using videoseotools you agree to use our AI tools responsibly.
             </p>
 
             <p>
@@ -30,7 +30,7 @@ export default function TermsPage() {
             </p>
 
             <p>
-              VidNova is provided "as is" without any guarantee of search rankings.
+              videoseotools is provided "as is" without any guarantee of search rankings.
             </p>
 
             <p>

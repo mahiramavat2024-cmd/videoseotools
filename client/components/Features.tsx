@@ -28,7 +28,7 @@ export default function Features() {
 
         <div className="text-center">
           <h2 className="text-5xl font-bold">
-            Why Choose VidNova?
+            Why Choose videoseotools?
           </h2>
 
           <p className="mt-5 text-gray-400 text-lg">
