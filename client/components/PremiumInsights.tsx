@@ -2,83 +2,75 @@ import Link from "next/link";
 
 export default function PremiumInsights() {
   return (
-    <section className="mt-12">
+    <section className="bg-[#08111f] py-24">
 
-      <div className="rounded-3xl border border-cyan-500 bg-[#111827] p-8">
+      <div className="mx-auto max-w-6xl px-6">
 
-        <div className="flex items-center justify-between">
+        <div className="rounded-3xl border border-cyan-500/20 bg-[#111827] p-10">
 
-          <div>
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
 
-            <h2 className="text-3xl font-bold text-white">
-              ✨ AI Premium Insights
-            </h2>
+            <div>
 
-            <p className="mt-2 text-zinc-400">
-              Unlock advanced AI analysis to improve your content performance.
-            </p>
+              <h2 className="text-4xl font-bold text-white">
+                🚀 More AI Tools Coming Soon
+              </h2>
+
+              <p className="mt-4 max-w-2xl text-lg text-zinc-400">
+                We are building powerful AI tools to help YouTube creators
+                grow faster. New tools will be released soon.
+              </p>
+
+            </div>
+
+            <div className="rounded-full bg-cyan-500 px-5 py-2 font-bold text-black">
+              Coming Soon
+            </div>
 
           </div>
 
-          <div className="rounded-full bg-yellow-500 px-4 py-2 font-bold text-black">
-            PRO
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+            <Feature
+              title="AI Script Generator"
+              description="Generate complete YouTube scripts in seconds."
+            />
+
+            <Feature
+              title="Thumbnail Generator"
+              description="Create high CTR thumbnail ideas instantly."
+            />
+
+            <Feature
+              title="Keyword Research"
+              description="Find low competition keywords for YouTube."
+            />
+
+            <Feature
+              title="Channel SEO Audit"
+              description="Analyze your YouTube channel like a pro."
+            />
+
+            <Feature
+              title="Content Planner"
+              description="Generate viral content ideas for your niche."
+            />
+
+            <Feature
+              title="Video Analyzer"
+              description="Improve your videos with AI suggestions."
+            />
+
           </div>
 
-        </div>
-
-        <div className="relative mt-8">
-
-          {/* Blur Overlay */}
-
-          <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-black/40 backdrop-blur-sm">
+          <div className="mt-10 text-center">
 
             <Link
-              href="/pricing"
-              className="rounded-xl bg-cyan-500 px-8 py-4 font-bold text-black hover:bg-cyan-400"
+              href="/contact"
+              className="inline-block rounded-xl bg-cyan-500 px-8 py-4 font-bold text-black transition hover:bg-cyan-400"
             >
-              🔓 Unlock PRO
+              Contact Us
             </Link>
-
-          </div>
-
-          {/* Premium Data */}
-
-          <div className="space-y-5 blur-sm select-none">
-
-            <Insight
-              title="SEO Score"
-              value="97 / 100"
-            />
-
-            <Insight
-              title="CTR Prediction"
-              value="94%"
-            />
-
-            <Insight
-              title="Viral Probability"
-              value="91%"
-            />
-
-            <Insight
-              title="Keyword Strength"
-              value="Excellent"
-            />
-
-            <Insight
-              title="Competition"
-              value="Low"
-            />
-
-            <Insight
-              title="Best Upload Time"
-              value="Saturday • 7:30 PM"
-            />
-
-            <Insight
-              title="Best Thumbnail Text"
-              value="Make Money FAST!"
-            />
 
           </div>
 
@@ -90,25 +82,25 @@ export default function PremiumInsights() {
   );
 }
 
-type InsightProps = {
+type FeatureProps = {
   title: string;
-  value: string;
+  description: string;
 };
 
-function Insight({
+function Feature({
   title,
-  value,
-}: InsightProps) {
+  description,
+}: FeatureProps) {
   return (
-    <div className="flex items-center justify-between rounded-xl bg-zinc-900 p-5">
+    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6">
 
-      <span className="text-lg text-white">
+      <h3 className="text-xl font-bold text-white">
         {title}
-      </span>
+      </h3>
 
-      <span className="font-bold text-cyan-400">
-        {value}
-      </span>
+      <p className="mt-3 text-zinc-400">
+        {description}
+      </p>
 
     </div>
   );

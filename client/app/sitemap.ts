@@ -5,10 +5,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: `${baseUrl}`,
+      url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "daily",
-      priority: 1.0,
+      priority: 1,
     },
 
     {
@@ -20,13 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-
-    {
-      url: `${baseUrl}/pricing`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
@@ -69,6 +62,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     {
       url: `${baseUrl}/youtube/title-generator`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: `${baseUrl}/youtube/description-generator`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: `${baseUrl}/youtube/tags-generator`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: `${baseUrl}/youtube/hashtag-generator`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
