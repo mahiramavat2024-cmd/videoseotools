@@ -58,7 +58,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    nocache: false,
 
     googleBot: {
       index: true,
@@ -71,12 +70,6 @@ export const metadata: Metadata = {
 
   alternates: {
     canonical: "https://videoseotools.com",
-  },
-
-  verification: {
-    other: {
-      "msvalidate.01": "0B6E44BBB9CE05ADAA0F797AE1CB0936",
-    },
   },
 
   openGraph: {
@@ -108,8 +101,7 @@ export const metadata: Metadata = {
 
     title: "VideoSEOTools",
 
-    description:
-      "Free AI SEO Tools for YouTube Creators.",
+    description: "Free AI SEO Tools for YouTube Creators.",
 
     images: ["/og-image.png"],
   },
@@ -131,6 +123,14 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
+      <head>
+        {/* Bing Webmaster Verification */}
+        <meta
+          name="msvalidate.01"
+          content="0B6E44BBB9CE05ADAA0F797AE1CB0936"
+        />
+      </head>
+
       <body className="min-h-screen bg-[#08111f] text-white antialiased">
         {children}
       </body>
