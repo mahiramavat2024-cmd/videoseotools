@@ -72,6 +72,12 @@ export const metadata: Metadata = {
     canonical: "https://videoseotools.com",
   },
 
+  verification: {
+    other: {
+      "msvalidate.01": "0B6E44BBB9CE05ADAA0F797AE1CB0936",
+    },
+  },
+
   openGraph: {
     title: "VideoSEOTools - Free AI YouTube SEO Tools",
 
@@ -124,7 +130,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
-        {/* Bing Webmaster Verification */}
         <meta
           name="msvalidate.01"
           content="0B6E44BBB9CE05ADAA0F797AE1CB0936"
