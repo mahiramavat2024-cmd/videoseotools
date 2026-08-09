@@ -15,7 +15,12 @@ export interface Tool {
   featured?: boolean;
   premium?: boolean;
 
-  aiType: "title" | "description" | "tags" | "hashtags";
+  aiType:
+    | "title"
+    | "description"
+    | "tags"
+    | "hashtags"
+    | "keyword";
 
   keywords?: string[];
   relatedTools?: string[];
