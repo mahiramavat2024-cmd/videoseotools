@@ -3,6 +3,7 @@ import {
   generateDescription,
   generateTags,
   generateHashtags,
+  generateKeywords,
 } from "./groq";
 
 export async function generateAI(
@@ -21,6 +22,12 @@ export async function generateAI(
 
     case "hashtags":
       return await generateHashtags(input);
+
+    case "keyword":
+      return await generateKeywords(input);
+
+    case "keywords":
+      return await generateKeywords(input);
 
     default:
       throw new Error(`Unsupported AI Tool: ${type}`);

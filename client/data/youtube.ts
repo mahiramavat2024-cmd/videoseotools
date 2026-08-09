@@ -23,6 +23,7 @@ export const youtubeTools: Tool[] = [
       "description-generator",
       "tags-generator",
       "hashtag-generator",
+      "keyword-generator",
     ],
 
     tips: [
@@ -68,6 +69,7 @@ export const youtubeTools: Tool[] = [
       "title-generator",
       "tags-generator",
       "hashtag-generator",
+      "keyword-generator",
     ],
 
     tips: [
@@ -113,6 +115,7 @@ export const youtubeTools: Tool[] = [
       "title-generator",
       "description-generator",
       "hashtag-generator",
+      "keyword-generator",
     ],
 
     tips: [
@@ -151,6 +154,7 @@ export const youtubeTools: Tool[] = [
       "title-generator",
       "description-generator",
       "tags-generator",
+      "keyword-generator",
     ],
 
     tips: [
@@ -162,6 +166,78 @@ export const youtubeTools: Tool[] = [
       {
         question: "How many hashtags should I use?",
         answer: "Using 3–5 relevant hashtags is usually sufficient.",
+      },
+    ],
+  },
+
+  /* =========================================================
+     YOUTUBE KEYWORD GENERATOR
+  ========================================================= */
+
+  {
+    platform: "youtube",
+    slug: "keyword-generator",
+    title: "Free YouTube Keyword Generator",
+    description:
+      "Find powerful YouTube keywords, keyword ideas, and SEO search terms for your videos with our free YouTube keyword research tool.",
+    placeholder: "Enter your YouTube video topic...",
+    icon: "🔑",
+    category: "YouTube",
+    featured: true,
+    premium: false,
+    aiType: "keyword",
+
+    keywords: [
+      "youtube keyword generator",
+      "free youtube keyword generator",
+      "youtube keyword research tool",
+      "youtube seo keywords",
+      "youtube keywords",
+      "keyword ideas for youtube",
+      "youtube video keywords",
+      "youtube keyword research",
+    ],
+
+    relatedTools: [
+      "title-generator",
+      "description-generator",
+      "tags-generator",
+      "hashtag-generator",
+    ],
+
+    tips: [
+      "Start with a clear and specific video topic.",
+      "Use a mix of broad and long-tail keywords.",
+      "Choose keywords that closely match your video content.",
+      "Use your primary keyword naturally in your title and description.",
+      "Avoid irrelevant keyword stuffing.",
+    ],
+
+    faqs: [
+      {
+        question: "What is a YouTube Keyword Generator?",
+        answer:
+          "A YouTube Keyword Generator helps creators discover relevant search terms and keyword ideas that can be used to optimize YouTube videos.",
+      },
+      {
+        question: "Is this YouTube Keyword Generator free?",
+        answer:
+          "Yes. You can use the VideoSEOTools YouTube Keyword Generator to generate keyword ideas for your videos.",
+      },
+      {
+        question: "What are YouTube SEO keywords?",
+        answer:
+          "YouTube SEO keywords are search terms related to your video topic that can help YouTube understand and match your content with relevant searches.",
+      },
+      {
+        question: "How should I use YouTube keywords?",
+        answer:
+          "Use relevant keywords naturally in your video title, description, tags, and overall content strategy without keyword stuffing.",
+      },
+      {
+        question: "Can I use long-tail keywords on YouTube?",
+        answer:
+          "Yes. Long-tail keywords can be useful because they are more specific and can closely match the search intent behind a video.",
       },
     ],
   },

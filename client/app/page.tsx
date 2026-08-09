@@ -324,7 +324,7 @@ export default function Home() {
 
           <p className="mx-auto mt-5 max-w-3xl leading-7 text-zinc-400">
             Choose a tool based on what you need for your next YouTube video.
-            Generate titles, descriptions, tags, or hashtags and optimize
+            Generate titles, descriptions, tags, hashtags, or keywords and optimize
             your content workflow.
           </p>
         </div>
@@ -409,6 +409,26 @@ export default function Home() {
             </span>
           </Link>
 
+          <Link
+            href="/youtube/keyword-generator"
+            className="rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition hover:border-cyan-500/50 hover:bg-[#101d30]"
+          >
+            <div className="text-3xl">🔍</div>
+
+            <h3 className="mt-4 text-xl font-bold">
+              YouTube Keyword Generator
+            </h3>
+
+            <p className="mt-3 text-sm leading-6 text-zinc-400">
+              Find powerful YouTube keywords and keyword ideas to optimize
+              your videos and reach more viewers.
+            </p>
+
+            <span className="mt-5 inline-block text-sm font-semibold text-cyan-400">
+              Try Keyword Generator →
+            </span>
+          </Link>
+
         </div>
       </section>
 
@@ -489,7 +509,7 @@ export default function Home() {
             </h3>
 
             <p className="mt-3 leading-7 text-zinc-400">
-              Use the AI tool to generate title, description, tag, or hashtag
+              Use the AI tool to generate title, description, tag, hashtag, or keyword
               ideas for your content.
             </p>
           </div>
