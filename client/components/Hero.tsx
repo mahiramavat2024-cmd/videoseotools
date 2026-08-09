@@ -2,8 +2,12 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="px-6 pb-16 pt-20 md:pb-24 md:pt-28">
-      <div className="mx-auto max-w-7xl text-center">
+    <section className="relative overflow-hidden bg-[#08111f] px-6 py-20 text-center">
+      {/* Background Glow */}
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl">
+
         {/* SEO Badge */}
         <span className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2 text-sm font-semibold text-cyan-400">
           🚀 Free AI YouTube SEO Tools
@@ -28,23 +32,29 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <div className="mt-12 flex flex-wrap justify-center gap-5">
+
+          {/* 100% Creator Growth */}
           <Link
-            href="/youtube/title-generator"
+            href="/blog"
             className="rounded-xl bg-cyan-500 px-8 py-4 font-bold text-black transition hover:bg-cyan-400"
           >
-            🚀 Try YouTube Title Generator
+            🚀 100% Creator Growth →
           </Link>
 
+          {/* Free SEO Tools */}
           <Link
             href="#tools"
             className="rounded-xl border border-zinc-700 px-8 py-4 font-semibold text-white transition hover:bg-zinc-900"
           >
             Explore Free SEO Tools
           </Link>
+
         </div>
 
         {/* Tool Highlights */}
         <div className="mt-16 grid grid-cols-2 gap-5 text-center md:grid-cols-4">
+
+          {/* YouTube Titles */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
             <div className="text-3xl">🎬</div>
 
@@ -57,6 +67,7 @@ export default function Hero() {
             </p>
           </div>
 
+          {/* Descriptions */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
             <div className="text-3xl">📝</div>
 
@@ -69,6 +80,7 @@ export default function Hero() {
             </p>
           </div>
 
+          {/* YouTube Tags */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
             <div className="text-3xl">🏷️</div>
 
@@ -81,6 +93,7 @@ export default function Hero() {
             </p>
           </div>
 
+          {/* Hashtags */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
             <div className="text-3xl">#️⃣</div>
 
@@ -92,6 +105,7 @@ export default function Hero() {
               Find relevant hashtag ideas for your content.
             </p>
           </div>
+
         </div>
       </div>
     </section>
