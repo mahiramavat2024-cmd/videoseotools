@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "How to Grow on Vimeo in 2026: Complete Guide",
+  title: "How to Get More Views on Vimeo",
   description:
     "Learn how to grow on Vimeo with Vimeo SEO, video optimization, keywords, descriptions, thumbnails and audience growth strategies.",
   keywords: [
@@ -43,7 +43,7 @@ export default function VimeoGrowthArticle() {
             </span>
 
             <h1 className="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
-              How to Grow on Vimeo in 2026
+              How to Get More Views on Vimeo
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-zinc-300">

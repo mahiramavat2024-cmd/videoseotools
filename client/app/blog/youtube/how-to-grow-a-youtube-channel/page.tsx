@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "How to Grow a YouTube Channel in 2026: Complete Guide",
+  title: "How to Gain YouTube Subscribers for Free",
   description:
     "Learn how to grow a YouTube channel in 2026 with YouTube SEO, keyword research, titles, descriptions, thumbnails, Shorts, audience retention and practical growth strategies.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
       "https://videoseotools.com/blog/youtube/how-to-grow-a-youtube-channel",
   },
   openGraph: {
-    title: "How to Grow a YouTube Channel in 2026: Complete Guide",
+    title: "How to Gain YouTube Subscribers for Free",
     description:
       "A practical guide to YouTube SEO, keyword research, titles, thumbnails, Shorts, retention and channel growth.",
     url: "https://videoseotools.com/blog/youtube/how-to-grow-a-youtube-channel",
@@ -77,8 +77,7 @@ export default function YouTubeGrowthArticle() {
               </span>
 
               <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">
-                How to Grow a YouTube Channel in 2026
-              </h1>
+                How to Gain YouTube Subscribers for Free</h1>
 
               <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-300 md:text-xl">
                 Learn YouTube SEO, keyword research, video ideas, titles,

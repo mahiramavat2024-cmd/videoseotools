@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "How to Grow on Instagram in 2026: Complete Guide",
+  title: "How to Increase Instagram Followers for Free",
   description:
     "Learn how to grow on Instagram in 2026 with practical Instagram SEO, Reels, content, hashtags, engagement and follower growth strategies.",
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
       "https://videoseotools.com/blog/instagram/how-to-grow-on-instagram",
   },
   openGraph: {
-    title: "How to Grow on Instagram in 2026: Complete Guide",
+    title: "How to Increase Instagram Followers for Free",
     description:
       "A practical guide to Instagram growth, SEO, Reels, content strategy, hashtags and audience growth.",
     url: "https://videoseotools.com/blog/instagram/how-to-grow-on-instagram",
@@ -70,7 +70,7 @@ export default function InstagramGrowthArticle() {
               </span>
 
               <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">
-                How to Grow on Instagram in 2026
+                How to Increase Instagram Followers for Free
               </h1>
 
               <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-300 md:text-xl">
