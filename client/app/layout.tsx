@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+const GA_ID = "G-1T6JD7PHFR";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -130,10 +133,34 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
+        {/* Bing Webmaster Verification */}
         <meta
           name="msvalidate.01"
           content="0B6E44BBB9CE05ADAA0F797AE1CB0936"
         />
+
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+        >
+          {`
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+              window.dataLayer.push(arguments);
+            }
+
+            gtag("js", new Date());
+
+            gtag("config", "${GA_ID}");
+          `}
+        </Script>
       </head>
 
       <body className="min-h-screen bg-[#08111f] text-white antialiased">

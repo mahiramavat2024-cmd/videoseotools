@@ -20,7 +20,8 @@ export interface Tool {
     | "description"
     | "tags"
     | "hashtags"
-    | "keyword";
+    | "keyword"
+    | "instagram-caption";
 
   keywords?: string[];
   relatedTools?: string[];

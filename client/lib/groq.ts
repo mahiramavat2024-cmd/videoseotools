@@ -14,12 +14,12 @@ async function askGroq(prompt: string): Promise<string> {
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       temperature: 0.8,
-      max_completion_tokens: 800,
+      max_completion_tokens: 1200,
       messages: [
         {
           role: "system",
           content:
-            "You are an expert YouTube SEO strategist and keyword research specialist.",
+            "You are an expert social media content strategist, YouTube SEO strategist, Instagram growth specialist, and content writer.",
         },
         {
           role: "user",
@@ -37,7 +37,7 @@ async function askGroq(prompt: string): Promise<string> {
 }
 
 /* =========================
-   TITLE GENERATOR
+   YOUTUBE TITLE GENERATOR
 ========================= */
 
 export async function generateTitles(
@@ -52,7 +52,7 @@ ${topic}
 }
 
 /* =========================
-   DESCRIPTION GENERATOR
+   YOUTUBE DESCRIPTION
 ========================= */
 
 export async function generateDescription(
@@ -67,7 +67,7 @@ ${topic}
 }
 
 /* =========================
-   TAGS GENERATOR
+   YOUTUBE TAGS
 ========================= */
 
 export async function generateTags(
@@ -82,7 +82,7 @@ ${topic}
 }
 
 /* =========================
-   HASHTAG GENERATOR
+   YOUTUBE HASHTAGS
 ========================= */
 
 export async function generateHashtags(
@@ -97,7 +97,7 @@ ${topic}
 }
 
 /* =========================
-   KEYWORD GENERATOR
+   YOUTUBE KEYWORD GENERATOR
 ========================= */
 
 export async function generateKeywords(
@@ -133,6 +133,61 @@ Example:
 3. youtube growth tips
 4. youtube seo tips
 5. grow youtube channel fast
+`;
+
+  return askGroq(prompt);
+}
+
+/* =========================
+   INSTAGRAM CAPTION GENERATOR
+========================= */
+
+export async function generateCaptions(
+  topic: string
+): Promise<string> {
+  const prompt = `
+You are an expert Instagram content strategist and social media copywriter.
+
+Generate 6 highly engaging Instagram captions for this topic:
+
+TOPIC:
+${topic}
+
+Requirements:
+
+- Generate exactly 6 different captions.
+- Each caption must be unique.
+- Make captions natural, engaging and human-sounding.
+- Use different writing styles and sentence structures.
+- Create curiosity and encourage interaction.
+- Some captions can include a question.
+- Some captions can include a call-to-action.
+- Use emojis naturally where appropriate.
+- Do not make every caption follow the same structure.
+- Avoid repeating the same phrases.
+- Keep captions relevant to the topic.
+- Do not create fake facts.
+- Do not add explanations outside the captions.
+- Return ONLY the 6 captions.
+- Number them from 1 to 6.
+- Put each caption on a separate line.
+
+Example topic:
+Top 5 travel destinations
+
+Example output style:
+
+1. Dreaming of your next adventure? These destinations deserve a spot on your bucket list ✈️🌍
+
+2. From hidden gems to unforgettable views, here are 5 places you need to explore at least once. Which one would you visit first? 👀
+
+3. Your next adventure might be closer than you think 🌎✨ Save this list for your future travels!
+
+4. If you could book a flight anywhere today, where would you go? ✈️ Tell us your dream destination below!
+
+5. Five destinations. Endless memories. Which one is calling your name? 🌴❤️
+
+6. Ready to explore somewhere new? Add these incredible destinations to your travel bucket list 🧳🌍
 `;
 
   return askGroq(prompt);
