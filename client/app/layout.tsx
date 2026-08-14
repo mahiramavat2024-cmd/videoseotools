@@ -61,7 +61,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -83,18 +82,12 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "VideoSEOTools - Free AI YouTube SEO Tools",
-
     description:
       "Generate AI-powered YouTube titles, descriptions, tags, hashtags, hooks and scripts for better rankings.",
-
     url: "https://videoseotools.com",
-
     siteName: "VideoSEOTools",
-
     locale: "en_US",
-
     type: "website",
-
     images: [
       {
         url: "/og-image.png",
@@ -107,11 +100,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-
     title: "VideoSEOTools",
-
     description: "Free AI SEO Tools for YouTube Creators.",
-
     images: ["/og-image.png"],
   },
 
@@ -133,11 +123,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
-        {/* Bing Webmaster Verification */}
         <meta
           name="msvalidate.01"
           content="0B6E44BBB9CE05ADAA0F797AE1CB0936"
         />
+      </head>
+
+      <body className="min-h-screen bg-[#08111f] text-white antialiased">
+        {children}
 
         {/* Google Analytics */}
         <Script
@@ -151,20 +144,11 @@ export default function RootLayout({
         >
           {`
             window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-              window.dataLayer.push(arguments);
-            }
-
-            gtag("js", new Date());
-
-            gtag("config", "${GA_ID}");
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
           `}
         </Script>
-      </head>
-
-      <body className="min-h-screen bg-[#08111f] text-white antialiased">
-        {children}
       </body>
     </html>
   );
