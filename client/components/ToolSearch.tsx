@@ -56,6 +56,19 @@ const tools: Tool[] = [
     href: "/youtube/keyword-generator",
     icon: "🔑",
   },
+
+  /* =========================
+     YOUTUBE SCRIPT GENERATOR
+  ========================= */
+
+  {
+    title: "YouTube Script Generator",
+    description:
+      "Create engaging, structured YouTube scripts with AI-powered hooks, storytelling and visual suggestions.",
+    category: "YOUTUBE",
+    href: "/youtube/script-generator",
+    icon: "🎥",
+  },
 ];
 
 export default function ToolSearch() {
@@ -138,26 +151,31 @@ export default function ToolSearch() {
             className="group rounded-2xl border border-zinc-800 bg-zinc-900/80 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/60 hover:bg-zinc-900 hover:shadow-[0_0_25px_rgba(6,182,212,0.12)]"
           >
             {/* Icon */}
+
             <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
               {tool.icon}
             </div>
 
             {/* Title */}
+
             <h3 className="mt-5 text-xl font-bold text-white transition-colors group-hover:text-cyan-400">
               {tool.title}
             </h3>
 
             {/* Category */}
+
             <p className="mt-2 text-xs font-medium uppercase tracking-wider text-cyan-400">
               {tool.category}
             </p>
 
             {/* Description */}
+
             <p className="mt-4 leading-7 text-zinc-400">
               {tool.description}
             </p>
 
             {/* Bottom */}
+
             <div className="mt-6 flex items-center justify-between">
               <span className="font-semibold text-cyan-400 transition-transform duration-300 group-hover:translate-x-1">
                 Open Tool →
@@ -184,7 +202,8 @@ export default function ToolSearch() {
           </h3>
 
           <p className="mt-2 text-zinc-400">
-            Try searching for title, description, tags, hashtags or keywords.
+            Try searching for title, description, tags, hashtags, keywords
+            or script.
           </p>
 
           <button
