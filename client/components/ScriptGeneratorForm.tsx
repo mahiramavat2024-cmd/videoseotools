@@ -20,10 +20,6 @@ export default function ScriptGeneratorForm() {
   const [titleLoading, setTitleLoading] = useState(false);
   const [editing, setEditing] = useState(false);
 
-  /* =========================
-     WORD COUNT
-  ========================= */
-
   function getWordCount(text: string) {
     if (!text.trim()) return 0;
 
@@ -32,10 +28,6 @@ export default function ScriptGeneratorForm() {
       .split(/\s+/)
       .filter(Boolean).length;
   }
-
-  /* =========================
-     ESTIMATED DURATION
-  ========================= */
 
   function getEstimatedDuration(text: string) {
     const wordCount = getWordCount(text);
@@ -50,10 +42,6 @@ export default function ScriptGeneratorForm() {
 
     return `${minutes.toFixed(1)} min`;
   }
-
-  /* =========================
-     GENERATE SCRIPT
-  ========================= */
 
   async function generate() {
     if (!topic.trim()) {
@@ -107,7 +95,6 @@ ${keywords.trim() || "None provided"}
 
       setScript(data.script || "");
 
-      // New script means old generated results are no longer relevant.
       setVisualPlan("");
       setScriptTitles("");
 
@@ -119,10 +106,6 @@ ${keywords.trim() || "None provided"}
       setLoading(false);
     }
   }
-
-  /* =========================
-     GENERATE VISUAL PLAN
-  ========================= */
 
   async function generateVisualPlan() {
     if (!script.trim()) {
@@ -160,10 +143,6 @@ ${keywords.trim() || "None provided"}
     }
   }
 
-  /* =========================
-     GENERATE SEO TITLES
-  ========================= */
-
   async function generateSeoTitles() {
     if (!script.trim()) {
       alert("Please generate a script first.");
@@ -200,10 +179,6 @@ ${keywords.trim() || "None provided"}
     }
   }
 
-  /* =========================
-     COPY SCRIPT
-  ========================= */
-
   async function copyScript() {
     if (!script) return;
 
@@ -215,10 +190,6 @@ ${keywords.trim() || "None provided"}
       alert("Failed to copy script.");
     }
   }
-
-  /* =========================
-     COPY VISUAL PLAN
-  ========================= */
 
   async function copyVisualPlan() {
     if (!visualPlan) return;
@@ -232,10 +203,6 @@ ${keywords.trim() || "None provided"}
     }
   }
 
-  /* =========================
-     COPY SEO TITLES
-  ========================= */
-
   async function copyAllTitles() {
     if (!scriptTitles) return;
 
@@ -248,128 +215,64 @@ ${keywords.trim() || "None provided"}
     }
   }
 
-  /* =========================
-     COPY INDIVIDUAL TITLE
-  ========================= */
+  function downloadText(
+    content: string,
+    filename: string,
+    footer: string
+  ) {
+    if (!content) return;
 
-  async function copyTitle(title: string) {
-    try {
-      await navigator.clipboard.writeText(title);
-      alert("Title copied!");
-    } catch (error) {
-      console.error(error);
-      alert("Failed to copy title.");
-    }
+    const fileContent = `${content}
+
+----------------------------------------
+Generated with VideoSEOTools
+${footer}
+----------------------------------------
+`;
+
+    const blob = new Blob([fileContent], {
+      type: "text/plain;charset=utf-8",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = filename;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
   }
-
-  /* =========================
-     DOWNLOAD SCRIPT
-  ========================= */
 
   function downloadScript() {
-    if (!script) return;
-
-    const fileContent = `${script}
-
-----------------------------------------
-Generated with VideoSEOTools
-YouTube Script Generator
-----------------------------------------
-`;
-
-    const blob = new Blob([fileContent], {
-      type: "text/plain;charset=utf-8",
-    });
-
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "youtube-script.txt";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
+    downloadText(
+      script,
+      "youtube-script.txt",
+      "YouTube Script Generator"
+    );
   }
-
-  /* =========================
-     DOWNLOAD VISUAL PLAN
-  ========================= */
 
   function downloadVisualPlan() {
-    if (!visualPlan) return;
-
-    const fileContent = `${visualPlan}
-
-----------------------------------------
-Generated with VideoSEOTools
-AI Visual Production Plan
-----------------------------------------
-`;
-
-    const blob = new Blob([fileContent], {
-      type: "text/plain;charset=utf-8",
-    });
-
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "youtube-visual-plan.txt";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
+    downloadText(
+      visualPlan,
+      "youtube-visual-plan.txt",
+      "AI Visual Production Plan"
+    );
   }
-
-  /* =========================
-     DOWNLOAD SEO TITLES
-  ========================= */
 
   function downloadTitles() {
-    if (!scriptTitles) return;
-
-    const fileContent = `${scriptTitles}
-
-----------------------------------------
-Generated with VideoSEOTools
-YouTube SEO Title Generator
-----------------------------------------
-`;
-
-    const blob = new Blob([fileContent], {
-      type: "text/plain;charset=utf-8",
-    });
-
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "youtube-seo-titles.txt";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
+    downloadText(
+      scriptTitles,
+      "youtube-seo-titles.txt",
+      "YouTube SEO Title Generator"
+    );
   }
-
-  /* =========================
-     EDIT MODE
-  ========================= */
 
   function toggleEdit() {
     setEditing((current) => !current);
@@ -381,13 +284,9 @@ YouTube SEO Title Generator
 
   return (
     <div className="mx-auto max-w-5xl">
-      {/* =====================================================
-          GENERATOR CARD
-      ===================================================== */}
+      {/* GENERATOR */}
 
       <div className="rounded-3xl border border-zinc-800 bg-[#0d1828] p-6 shadow-2xl md:p-8">
-        {/* Topic */}
-
         <div>
           <label className="mb-3 block text-sm font-semibold text-zinc-200">
             Video Topic
@@ -402,11 +301,7 @@ YouTube SEO Title Generator
           />
         </div>
 
-        {/* Options */}
-
         <div className="mt-6 grid gap-5 md:grid-cols-2">
-          {/* Duration */}
-
           <div>
             <label className="mb-3 block text-sm font-semibold text-zinc-200">
               Video Duration
@@ -425,8 +320,6 @@ YouTube SEO Title Generator
               <option>20 Minutes</option>
             </select>
           </div>
-
-          {/* Language */}
 
           <div>
             <label className="mb-3 block text-sm font-semibold text-zinc-200">
@@ -447,8 +340,6 @@ YouTube SEO Title Generator
               <option>German</option>
             </select>
           </div>
-
-          {/* Content Type */}
 
           <div>
             <label className="mb-3 block text-sm font-semibold text-zinc-200">
@@ -473,8 +364,6 @@ YouTube SEO Title Generator
             </select>
           </div>
 
-          {/* Tone */}
-
           <div>
             <label className="mb-3 block text-sm font-semibold text-zinc-200">
               Tone / Style
@@ -498,8 +387,6 @@ YouTube SEO Title Generator
           </div>
         </div>
 
-        {/* Audience */}
-
         <div className="mt-6">
           <label className="mb-3 block text-sm font-semibold text-zinc-200">
             Target Audience{" "}
@@ -515,8 +402,6 @@ YouTube SEO Title Generator
             className="w-full rounded-xl border border-zinc-700 bg-zinc-900 p-4 text-white outline-none placeholder:text-zinc-500 focus:border-cyan-500"
           />
         </div>
-
-        {/* Keywords */}
 
         <div className="mt-6">
           <label className="mb-3 block text-sm font-semibold text-zinc-200">
@@ -534,8 +419,6 @@ YouTube SEO Title Generator
           />
         </div>
 
-        {/* Generate */}
-
         <button
           onClick={generate}
           disabled={loading}
@@ -549,14 +432,10 @@ YouTube SEO Title Generator
         </button>
       </div>
 
-      {/* =====================================================
-          SCRIPT RESULT
-      ===================================================== */}
+      {/* SCRIPT RESULT */}
 
       {script && (
         <div className="mt-10 overflow-hidden rounded-3xl border border-zinc-800 bg-[#0d1828]">
-          {/* Header */}
-
           <div className="border-b border-zinc-800 p-6">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
@@ -568,8 +447,6 @@ YouTube SEO Title Generator
                   Your YouTube Script
                 </h2>
               </div>
-
-              {/* Actions */}
 
               <div className="flex flex-wrap gap-2">
                 <button
@@ -604,8 +481,6 @@ YouTube SEO Title Generator
             </div>
           </div>
 
-          {/* Stats */}
-
           <div className="grid grid-cols-2 border-b border-zinc-800 sm:grid-cols-3">
             <div className="border-r border-zinc-800 p-5">
               <p className="text-sm text-zinc-500">
@@ -638,8 +513,6 @@ YouTube SEO Title Generator
             </div>
           </div>
 
-          {/* Script */}
-
           <div className="p-6 md:p-8">
             {editing ? (
               <textarea
@@ -655,9 +528,7 @@ YouTube SEO Title Generator
             )}
           </div>
 
-          {/* =================================================
-              SEO TITLES
-          ================================================= */}
+          {/* SEO TITLES */}
 
           <div className="border-t border-zinc-800 bg-zinc-950/30 p-6">
             <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
@@ -709,45 +580,32 @@ YouTube SEO Title Generator
             </div>
           </div>
 
-          {/* =================================================
-              SEO TITLE RESULT
-          ================================================= */}
-
           {scriptTitles && (
             <div className="border-t border-zinc-800 p-6 md:p-8">
               <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
-                <div className="mb-5 flex items-center justify-between">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
-                      AI Title Analysis
-                    </p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
+                  AI Title Analysis
+                </p>
 
-                    <h4 className="mt-1 text-lg font-bold">
-                      Recommended YouTube Titles
-                    </h4>
-                  </div>
-                </div>
+                <h4 className="mt-1 text-lg font-bold">
+                  Recommended YouTube Titles
+                </h4>
 
-                <div className="whitespace-pre-wrap text-[15px] leading-8 text-zinc-200">
+                <div className="mt-5 whitespace-pre-wrap text-[15px] leading-8 text-zinc-200">
                   {scriptTitles}
                 </div>
               </div>
 
-              {/* Copy individual title helper */}
-
-              <div className="mt-5">
-                <p className="text-xs leading-5 text-zinc-500">
-                  Tip: Use the title with the strongest combination of
-                  search relevance and curiosity. SEO scores are AI-generated
-                  estimates and do not guarantee rankings or views.
-                </p>
-              </div>
+              <p className="mt-5 text-xs leading-5 text-zinc-500">
+                Tip: Use the title with the strongest combination of
+                search relevance and curiosity. SEO scores are
+                AI-generated estimates and do not guarantee rankings
+                or views.
+              </p>
             </div>
           )}
 
-          {/* =================================================
-              VIDEO PRODUCTION TOOLS
-          ================================================= */}
+          {/* VISUAL PLAN BUTTON */}
 
           <div className="border-t border-zinc-800 bg-zinc-950/30 p-6">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -775,14 +633,10 @@ YouTube SEO Title Generator
         </div>
       )}
 
-      {/* =====================================================
-          VISUAL PLAN
-      ===================================================== */}
+      {/* VISUAL PLAN */}
 
       {visualPlan && (
         <div className="mt-8 overflow-hidden rounded-3xl border border-zinc-800 bg-[#0d1828]">
-          {/* Header */}
-
           <div className="border-b border-zinc-800 p-6">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
@@ -816,8 +670,6 @@ YouTube SEO Title Generator
               </div>
             </div>
           </div>
-
-          {/* Content */}
 
           <div className="p-6 md:p-8">
             <div className="whitespace-pre-wrap text-[15px] leading-8 text-zinc-200 md:text-base">
