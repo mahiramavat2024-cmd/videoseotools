@@ -20,227 +20,200 @@ export default function Home() {
       <section>
         <Hero />
       </section>
+
       {/* =========================================================
-    YOUTUBE CREATOR TOOLS
-========================================================= */}
-<section
-  id="youtube-tools"
-  className="relative overflow-hidden border-y border-zinc-800/70 bg-[#08111f] px-6 py-20"
->
-  {/* Background Glow */}
-  <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
-
-  <div className="relative mx-auto max-w-7xl">
-
-    {/* Header */}
-    <div className="mx-auto max-w-3xl text-center">
-
-      <span className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2 text-sm font-bold tracking-wide text-cyan-400">
-        🚀 YOUTUBE CREATOR TOOLS
-      </span>
-
-      <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-        Everything You Need to{" "}
-        <span className="text-cyan-400">
-          Grow on YouTube
-        </span>
-      </h2>
-
-      <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-zinc-400">
-        Create better videos, optimize your content, discover keywords,
-        generate scripts and estimate your YouTube channel earnings.
-      </p>
-
-    </div>
-
-    {/* 7 Tools */}
-    <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
-      {/* 1. TITLE */}
-      <Link
-        href="/youtube/title-generator"
-        className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
+          YOUTUBE CREATOR TOOLS
+      ========================================================= */}
+      <section
+        id="youtube-tools"
+        className="relative overflow-hidden border-y border-zinc-800/70 bg-[#08111f] px-6 py-20"
       >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          🎬
+        {/* Background Glow */}
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl">
+          {/* Header */}
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2 text-sm font-bold tracking-wide text-cyan-400">
+              🚀 YOUTUBE CREATOR TOOLS
+            </span>
+
+            <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+              Everything You Need to{" "}
+              <span className="text-cyan-400">
+                Grow on YouTube
+              </span>
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-zinc-400">
+              Create better videos, optimize your content, discover keywords,
+              generate scripts and estimate your YouTube channel earnings.
+            </p>
+          </div>
+
+          {/* 7 Tools */}
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {/* 1. TITLE */}
+            <Link
+              href="/youtube/title-generator"
+              className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
+            >
+              <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                🎬
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
+                YouTube Title Generator
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
+                Generate catchy and SEO-friendly YouTube titles that attract
+                more clicks.
+              </p>
+
+              <div className="mt-5 font-semibold text-cyan-400">
+                Open Tool →
+              </div>
+            </Link>
+
+            {/* 2. DESCRIPTION */}
+            <Link
+              href="/youtube/description-generator"
+              className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
+            >
+              <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                📝
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
+                YouTube Description Generator
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
+                Create structured, readable and SEO-friendly YouTube
+                descriptions.
+              </p>
+
+              <div className="mt-5 font-semibold text-cyan-400">
+                Open Tool →
+              </div>
+            </Link>
+
+            {/* 3. TAGS */}
+            <Link
+              href="/youtube/tags-generator"
+              className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
+            >
+              <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                🏷️
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
+                YouTube Tags Generator
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
+                Generate relevant YouTube tags based on your video topic.
+              </p>
+
+              <div className="mt-5 font-semibold text-cyan-400">
+                Open Tool →
+              </div>
+            </Link>
+
+            {/* 4. HASHTAGS */}
+            <Link
+              href="/youtube/hashtag-generator"
+              className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
+            >
+              <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                #️⃣
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
+                YouTube Hashtag Generator
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
+                Find relevant hashtag ideas to improve your YouTube content
+                strategy.
+              </p>
+
+              <div className="mt-5 font-semibold text-cyan-400">
+                Open Tool →
+              </div>
+            </Link>
+
+            {/* 5. KEYWORDS */}
+            <Link
+              href="/youtube/keyword-generator"
+              className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
+            >
+              <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                🔑
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
+                YouTube Keyword Generator
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
+                Find powerful keywords and SEO search terms for your videos.
+              </p>
+
+              <div className="mt-5 font-semibold text-cyan-400">
+                Open Tool →
+              </div>
+            </Link>
+
+            {/* 6. SCRIPT */}
+            <Link
+              href="/youtube/script-generator"
+              className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
+            >
+              <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                🎥
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
+                YouTube Script Generator
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
+                Create engaging scripts with hooks, storytelling and visual
+                suggestions.
+              </p>
+
+              <div className="mt-5 font-semibold text-cyan-400">
+                Open Tool →
+              </div>
+            </Link>
+
+            {/* 7. EARNINGS */}
+            <Link
+              href="/youtube/earnings-checker"
+              className="group rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400 hover:bg-cyan-500/10 hover:shadow-[0_0_35px_rgba(6,182,212,0.18)]"
+            >
+              <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                💰
+              </div>
+
+              <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
+                YouTube Earnings Checker
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-zinc-400">
+                Check estimated views, daily earnings, monthly earnings and
+                yearly YouTube income.
+              </p>
+
+              <div className="mt-5 font-semibold text-cyan-400">
+                Check Earnings →
+              </div>
+            </Link>
+          </div>
         </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          YouTube Title Generator
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Generate catchy and SEO-friendly YouTube titles that attract
-          more clicks.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Open Tool →
-        </div>
-      </Link>
-
-      {/* 2. DESCRIPTION */}
-      <Link
-        href="/youtube/description-generator"
-        className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
-      >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          📝
-        </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          YouTube Description Generator
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Create structured, readable and SEO-friendly YouTube
-          descriptions.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Open Tool →
-        </div>
-      </Link>
-
-      {/* 3. TAGS */}
-      <Link
-        href="/youtube/tags-generator"
-        className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
-      >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          🏷️
-        </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          YouTube Tags Generator
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Generate relevant YouTube tags based on your video topic.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Open Tool →
-        </div>
-      </Link>
-
-      {/* 4. HASHTAGS */}
-      <Link
-        href="/youtube/hashtag-generator"
-        className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
-      >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          #️⃣
-        </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          YouTube Hashtag Generator
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Find relevant hashtag ideas to improve your YouTube content
-          strategy.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Open Tool →
-        </div>
-      </Link>
-
-      {/* 5. KEYWORDS */}
-      <Link
-        href="/youtube/keyword-generator"
-        className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
-      >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          🔑
-        </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          YouTube Keyword Generator
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Find powerful keywords and SEO search terms for your videos.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Open Tool →
-        </div>
-      </Link>
-
-      {/* 6. SCRIPT */}
-      <Link
-        href="/youtube/script-generator"
-        className="group rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30] hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]"
-      >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          🎥
-        </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          YouTube Script Generator
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Create engaging scripts with hooks, storytelling and visual
-          suggestions.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Open Tool →
-        </div>
-      </Link>
-
-      {/* 7. EARNINGS */}
-      <Link
-        href="/youtube/earnings-checker"
-        className="group rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-cyan-400 hover:bg-cyan-500/10 hover:shadow-[0_0_35px_rgba(6,182,212,0.18)]"
-      >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          💰
-        </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          YouTube Earnings Checker
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Check estimated views, daily earnings, monthly earnings and
-          yearly YouTube income.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Check Earnings →
-        </div>
-      </Link>
-
-      {/* 8. VIEW ALL */}
-      <Link
-        href="/youtube"
-        className="group flex flex-col justify-center rounded-2xl border border-dashed border-zinc-700 bg-[#0d1828]/50 p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:border-cyan-500/60 hover:bg-[#101d30]"
-      >
-        <div className="text-4xl transition-transform duration-300 group-hover:scale-110">
-          🚀
-        </div>
-
-        <h3 className="mt-5 text-xl font-bold text-white group-hover:text-cyan-400">
-          More YouTube Tools
-        </h3>
-
-        <p className="mt-3 text-sm leading-6 text-zinc-400">
-          Explore more free tools for YouTube creators.
-        </p>
-
-        <div className="mt-5 font-semibold text-cyan-400">
-          Explore All →
-        </div>
-      </Link>
-
-    </div>
-
-  </div>
-</section>
+      </section>
 
       {/* =========================================================
           100% CREATOR GROWTH
@@ -250,7 +223,6 @@ export default function Home() {
         <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl">
-
           {/* Section Header */}
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2 text-sm font-bold tracking-wide text-cyan-400">
@@ -270,7 +242,6 @@ export default function Home() {
 
           {/* Platform Articles */}
           <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-
             {/* YouTube */}
             <Link
               href="/blog/youtube/how-to-grow-a-youtube-channel"
@@ -456,7 +427,6 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-
           </div>
 
           {/* All Guides Button */}
@@ -468,7 +438,6 @@ export default function Home() {
               📚 Explore All Creator Guides →
             </Link>
           </div>
-
         </div>
       </section>
 
@@ -491,7 +460,6 @@ export default function Home() {
       ========================================================= */}
       <section className="border-y border-zinc-800/70 bg-[#0a1424]">
         <div className="mx-auto max-w-5xl px-6 py-20">
-
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
               YouTube SEO Tools
@@ -503,7 +471,6 @@ export default function Home() {
           </div>
 
           <div className="mt-10 space-y-6 text-base leading-8 text-zinc-300">
-
             <p>
               VideoSEOTools provides free AI-powered tools designed to help
               YouTube creators plan, optimize, and improve their video
@@ -524,7 +491,6 @@ export default function Home() {
               producing entertainment content, VideoSEOTools gives you
               practical tools to generate ideas and SEO-focused content.
             </p>
-
           </div>
         </div>
       </section>
@@ -533,7 +499,6 @@ export default function Home() {
           FREE YOUTUBE SEO TOOLS
       ========================================================= */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
             Explore Our Tools
@@ -545,13 +510,12 @@ export default function Home() {
 
           <p className="mx-auto mt-5 max-w-3xl leading-7 text-zinc-400">
             Choose a tool based on what you need for your next YouTube video.
-            Generate titles, descriptions, tags, hashtags, or keywords and optimize
-            your content workflow.
+            Generate titles, descriptions, tags, hashtags, or keywords and
+            optimize your content workflow.
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-
           <Link
             href="/youtube/title-generator"
             className="rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 transition hover:border-cyan-500/50 hover:bg-[#101d30]"
@@ -649,7 +613,6 @@ export default function Home() {
               Try Keyword Generator →
             </span>
           </Link>
-
         </div>
       </section>
 
@@ -658,13 +621,11 @@ export default function Home() {
       ========================================================= */}
       <section className="border-y border-zinc-800/70 bg-[#0a1424]">
         <div className="mx-auto max-w-5xl px-6 py-20">
-
           <h2 className="text-3xl font-bold md:text-4xl">
             What Is YouTube SEO?
           </h2>
 
           <div className="mt-8 space-y-6 text-base leading-8 text-zinc-300">
-
             <p>
               YouTube SEO is the process of improving the information and
               content around a video so that viewers and search engines can
@@ -683,7 +644,6 @@ export default function Home() {
               your title and description accurately communicate what viewers
               can expect.
             </p>
-
           </div>
         </div>
       </section>
@@ -692,7 +652,6 @@ export default function Home() {
           HOW IT WORKS
       ========================================================= */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
             Simple Workflow
@@ -704,7 +663,6 @@ export default function Home() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-
           <div className="rounded-2xl border border-zinc-800 bg-[#0d1828] p-7">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500 font-bold text-black">
               1
@@ -730,8 +688,8 @@ export default function Home() {
             </h3>
 
             <p className="mt-3 leading-7 text-zinc-400">
-              Use the AI tool to generate title, description, tag, hashtag, or keyword
-              ideas for your content.
+              Use the AI tool to generate title, description, tag, hashtag, or
+              keyword ideas for your content.
             </p>
           </div>
 
@@ -749,7 +707,6 @@ export default function Home() {
               audience, video, and content style.
             </p>
           </div>
-
         </div>
       </section>
 
@@ -765,7 +722,6 @@ export default function Home() {
       ========================================================= */}
       <section className="border-t border-zinc-800/70 bg-[#0a1424]">
         <div className="mx-auto max-w-4xl px-6 py-20">
-
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
               Frequently Asked Questions
@@ -777,7 +733,6 @@ export default function Home() {
           </div>
 
           <div className="mt-12 space-y-5">
-
             <details className="rounded-2xl border border-zinc-800 bg-[#0d1828] p-6">
               <summary className="cursor-pointer list-none text-lg font-semibold">
                 What is VideoSEOTools?
@@ -849,7 +804,6 @@ export default function Home() {
                 .
               </p>
             </details>
-
           </div>
         </div>
       </section>

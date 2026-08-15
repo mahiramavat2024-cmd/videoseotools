@@ -185,12 +185,11 @@ export default function EarningsChecker() {
 
   return (
     <div className="min-h-screen bg-[#06101f] px-4 py-8 text-white md:px-6 md:py-12">
-
       <div className="mx-auto max-w-6xl">
 
-        {/* =========================
+        {/* =====================================================
             TOP HOME BUTTON
-        ========================== */}
+        ====================================================== */}
 
         <div className="mb-6">
           <Link
@@ -200,13 +199,14 @@ export default function EarningsChecker() {
             <span className="transition-transform group-hover:-translate-x-1">
               ←
             </span>
+
             Back to Home
           </Link>
         </div>
 
-        {/* =========================
+        {/* =====================================================
             SEARCH HEADER
-        ========================== */}
+        ====================================================== */}
 
         <section className="rounded-3xl border border-zinc-800 bg-gradient-to-br from-[#111d2a] via-[#0c1723] to-[#071b25] p-6 shadow-2xl md:p-10">
 
@@ -227,13 +227,11 @@ export default function EarningsChecker() {
           {/* CHANNEL INPUT */}
 
           <div className="mt-9">
-
             <label className="mb-3 block text-sm font-bold">
               YouTube Channel URL or Handle
             </label>
 
             <div className="relative">
-
               <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2">
                 ▶️
               </span>
@@ -250,9 +248,7 @@ export default function EarningsChecker() {
                 placeholder="https://www.youtube.com/@channelname"
                 className="w-full rounded-2xl border border-zinc-700 bg-black/50 px-12 py-5 text-white outline-none placeholder:text-zinc-600 transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
               />
-
             </div>
-
           </div>
 
           {/* RPM + BUTTON */}
@@ -260,7 +256,6 @@ export default function EarningsChecker() {
           <div className="mt-6 grid gap-5 md:grid-cols-[340px_1fr]">
 
             <div>
-
               <label className="mb-3 block text-sm font-bold">
                 Estimated RPM
               </label>
@@ -276,11 +271,9 @@ export default function EarningsChecker() {
                 <option value="8">$8 RPM — High</option>
                 <option value="10">$10 RPM — Very High</option>
               </select>
-
             </div>
 
             <div className="flex items-end">
-
               <button
                 onClick={checkEarnings}
                 disabled={loading}
@@ -290,7 +283,6 @@ export default function EarningsChecker() {
                   ? "Checking Channel..."
                   : "💰 Check YouTube Earnings →"}
               </button>
-
             </div>
 
           </div>
@@ -301,9 +293,9 @@ export default function EarningsChecker() {
 
         </section>
 
-        {/* =========================
+        {/* =====================================================
             ERROR
-        ========================== */}
+        ====================================================== */}
 
         {error && (
           <div className="mt-6 rounded-2xl border border-red-500/40 bg-red-950/30 p-5 text-red-300">
@@ -319,9 +311,9 @@ export default function EarningsChecker() {
           </div>
         )}
 
-        {/* =========================
+        {/* =====================================================
             CHANNEL RESULT
-        ========================== */}
+        ====================================================== */}
 
         {channel && (
           <section className="mt-8">
@@ -376,9 +368,9 @@ export default function EarningsChecker() {
 
             </div>
 
-            {/* =========================
+            {/* =================================================
                 BASIC STATS
-            ========================== */}
+            ================================================== */}
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -436,9 +428,9 @@ export default function EarningsChecker() {
 
             </div>
 
-            {/* =========================
+            {/* =================================================
                 VIEW ESTIMATES
-            ========================== */}
+            ================================================== */}
 
             <div className="mt-6 rounded-3xl border border-zinc-800 bg-zinc-900/70 p-6 md:p-8">
 
@@ -508,9 +500,9 @@ export default function EarningsChecker() {
 
             </div>
 
-            {/* =========================
+            {/* =================================================
                 EARNINGS
-            ========================== */}
+            ================================================== */}
 
             <div className="mt-6 rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-[#061b29] to-[#06101b] p-6 shadow-2xl shadow-cyan-950/20 md:p-10">
 
@@ -603,9 +595,9 @@ export default function EarningsChecker() {
 
             </div>
 
-            {/* =========================
+            {/* =================================================
                 RECENT VIDEOS
-            ========================== */}
+            ================================================== */}
 
             {channel.recentVideos?.length > 0 && (
               <div className="mt-6 rounded-3xl border border-zinc-800 bg-zinc-900/70 p-6 md:p-8">
@@ -733,7 +725,9 @@ export default function EarningsChecker() {
 
             </div>
 
-            {/* ALL TOOLS BUTTON */}
+            {/* =================================================
+                VIEW ALL BUTTON
+            ================================================== */}
 
             <div className="mt-10 flex justify-center">
 
@@ -760,6 +754,7 @@ export default function EarningsChecker() {
             href="/"
             className="group inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-4 font-bold text-black shadow-xl shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-cyan-500/20"
           >
+
             <span className="text-lg">
               🏠
             </span>
@@ -777,14 +772,11 @@ export default function EarningsChecker() {
         {/* FOOTER */}
 
         <div className="py-10 text-center text-xs leading-6 text-zinc-600">
-
           VideoSEOTools uses publicly available YouTube channel data for
           estimates. Actual YouTube revenue may vary.
-
         </div>
 
       </div>
-
     </div>
   );
 }
