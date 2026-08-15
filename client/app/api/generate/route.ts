@@ -13,10 +13,6 @@ export async function POST(req: Request) {
     console.log("Input:", input);
     console.log("=================================");
 
-    /* =========================
-       VALIDATION
-    ========================= */
-
     if (!type) {
       return NextResponse.json(
         {
@@ -28,7 +24,7 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!input || typeof input !== "string" || !input.trim()) {
+    if (!input?.trim()) {
       return NextResponse.json(
         {
           error: "Input is required.",
@@ -39,18 +35,10 @@ export async function POST(req: Request) {
       );
     }
 
-    /* =========================
-       AI GENERATION
-    ========================= */
-
     const text = await generateAI(type, input);
 
     console.log("AI RESPONSE:");
     console.log(text);
-
-    /* =========================
-       EMPTY RESPONSE CHECK
-    ========================= */
 
     if (!text || !text.trim()) {
       return NextResponse.json(
@@ -62,42 +50,6 @@ export async function POST(req: Request) {
         }
       );
     }
-
-    /* =========================
-       FULL TEXT TOOLS
-    ========================= */
-
-    if (type === "script") {
-      console.log("FINAL SCRIPT RESPONSE:");
-
-      return NextResponse.json({
-        script: text.trim(),
-      });
-    }
-
-    if (type === "visual-plan") {
-      console.log("FINAL VISUAL PLAN RESPONSE:");
-
-      return NextResponse.json({
-        visualPlan: text.trim(),
-      });
-    }
-
-    /* =========================
-       SCRIPT SEO TITLES
-    ========================= */
-
-    if (type === "script-titles") {
-      console.log("FINAL SCRIPT SEO TITLES RESPONSE:");
-
-      return NextResponse.json({
-        scriptTitles: text.trim(),
-      });
-    }
-
-    /* =========================
-       EXISTING AI TOOLS
-    ========================= */
 
     const results = text
       .split("\n")

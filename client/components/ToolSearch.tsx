@@ -57,10 +57,6 @@ const tools: Tool[] = [
     icon: "🔑",
   },
 
-  /* =========================
-     YOUTUBE SCRIPT GENERATOR
-  ========================= */
-
   {
     title: "YouTube Script Generator",
     description:
@@ -68,6 +64,19 @@ const tools: Tool[] = [
     category: "YOUTUBE",
     href: "/youtube/script-generator",
     icon: "🎥",
+  },
+
+  /* =========================
+     YOUTUBE EARNINGS CHECKER
+  ========================= */
+
+  {
+    title: "YouTube Channel Earnings Checker",
+    description:
+      "Estimate a YouTube channel's monthly and yearly earnings using public channel statistics and estimated RPM.",
+    category: "YOUTUBE",
+    href: "/youtube/earnings-checker",
+    icon: "💰",
   },
 ];
 
@@ -202,8 +211,8 @@ export default function ToolSearch() {
           </h3>
 
           <p className="mt-2 text-zinc-400">
-            Try searching for title, description, tags, hashtags, keywords
-            or script.
+            Try searching for title, description, tags, hashtags, keywords,
+            script or earnings.
           </p>
 
           <button
