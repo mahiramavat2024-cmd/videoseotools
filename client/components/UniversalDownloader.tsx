@@ -143,6 +143,123 @@ function isValidPlatformUrl(
   }
 }
 
+/* =========================================================
+   QUALITY HELPERS
+========================================================= */
+
+function getQualityValue(
+  quality?: string,
+  height?: number
+): number {
+  if (height) {
+    return height;
+  }
+
+  const value = (quality || "").toLowerCase();
+
+  if (
+    value.includes("2160") ||
+    value.includes("4k") ||
+    value.includes("uhd")
+  ) {
+    return 2160;
+  }
+
+  if (
+    value.includes("1440") ||
+    value.includes("2k")
+  ) {
+    return 1440;
+  }
+
+  if (value.includes("1080")) {
+    return 1080;
+  }
+
+  if (value.includes("720")) {
+    return 720;
+  }
+
+  if (value.includes("480")) {
+    return 480;
+  }
+
+  if (value.includes("360")) {
+    return 360;
+  }
+
+  if (value.includes("240")) {
+    return 240;
+  }
+
+  return 0;
+}
+
+function getQualityLabel(
+  quality?: string,
+  height?: number
+): string {
+  const value = getQualityValue(
+    quality,
+    height
+  );
+
+  if (value >= 2160) {
+    return "4K";
+  }
+
+  if (value >= 1440) {
+    return "1440p";
+  }
+
+  if (value >= 1080) {
+    return "1080p";
+  }
+
+  if (value >= 720) {
+    return "720p";
+  }
+
+  if (value >= 480) {
+    return "480p";
+  }
+
+  if (value >= 360) {
+    return "360p";
+  }
+
+  if (value >= 240) {
+    return "240p";
+  }
+
+  return quality || "Video";
+}
+
+function getMimeLabel(
+  format?: string,
+  mimeType?: string
+): string {
+  if (format) {
+    return format.toUpperCase();
+  }
+
+  if (mimeType) {
+    const clean = mimeType.split(";")[0];
+
+    if (clean.includes("/")) {
+      return clean.split("/")[1].toUpperCase();
+    }
+
+    return clean.toUpperCase();
+  }
+
+  return "VIDEO";
+}
+
+/* =========================================================
+   COMPONENT
+========================================================= */
+
 export default function UniversalDownloader({
   platform,
   title,
@@ -150,16 +267,18 @@ export default function UniversalDownloader({
 }: Props) {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
+
   const [result, setResult] =
     useState<DownloadData | null>(null);
+
   const [error, setError] = useState("");
 
   const platformName =
     platformRules[platform].name;
 
-  // ==========================================
-  // DOWNLOAD / PROCESS URL
-  // ==========================================
+  /* =======================================================
+     DOWNLOAD / PROCESS URL
+  ======================================================== */
 
   async function handleDownload() {
     const cleanUrl = url.trim();
@@ -236,9 +355,9 @@ export default function UniversalDownloader({
     }
   }
 
-  // ==========================================
-  // PASTE BUTTON
-  // ==========================================
+  /* =======================================================
+     PASTE BUTTON
+  ======================================================== */
 
   async function handlePaste() {
     try {
@@ -257,9 +376,9 @@ export default function UniversalDownloader({
     }
   }
 
-  // ==========================================
-  // CLEAR / NEW DOWNLOAD
-  // ==========================================
+  /* =======================================================
+     CLEAR / NEW DOWNLOAD
+  ======================================================== */
 
   function clearAll() {
     setUrl("");
@@ -267,18 +386,30 @@ export default function UniversalDownloader({
     setError("");
   }
 
-  // ==========================================
-  // AVAILABLE VIDEOS
-  // ==========================================
+  /* =======================================================
+     AVAILABLE VIDEOS
+  ======================================================== */
 
   const videos =
-    result?.videos?.filter(
+    (result?.videos?.filter(
       (video) => video?.url
-    ) || [];
+    ) || [])
+      .map((video) => ({
+        ...video,
+        qualityValue: getQualityValue(
+          video.quality,
+          video.height
+        ),
+      }))
+      .sort(
+        (a, b) =>
+          b.qualityValue -
+          a.qualityValue
+      );
 
-  // ==========================================
-  // THUMBNAIL
-  // ==========================================
+  /* =======================================================
+     THUMBNAIL
+  ======================================================== */
 
   const images =
     result?.images?.filter(
@@ -290,30 +421,32 @@ export default function UniversalDownloader({
     images[0]?.url ||
     "";
 
-  const proxyImageUrl = previewImage
-    ? `/api/image-proxy?url=${encodeURIComponent(
-        previewImage
-      )}`
-    : "";
+  const proxyImageUrl =
+    previewImage
+      ? `/api/image-proxy?url=${encodeURIComponent(
+          previewImage
+        )}`
+      : "";
 
-  // ==========================================
-  // UI
-  // ==========================================
+  /* =======================================================
+     UI
+  ======================================================== */
 
   return (
     <div className="w-full">
 
-      {/* ========================================
+      {/* ===================================================
           MAIN DOWNLOADER CARD
-      ======================================== */}
+      ==================================================== */}
 
       <div className="rounded-3xl border border-zinc-800 bg-[#0d1828] p-5 shadow-2xl md:p-8">
 
-        {/* ======================================
+        {/* =================================================
             URL INPUT
-        ====================================== */}
+        ================================================== */}
 
         <div className="relative">
+
           <input
             type="url"
             value={url}
@@ -339,11 +472,12 @@ export default function UniversalDownloader({
           >
             Paste
           </button>
+
         </div>
 
-        {/* ======================================
+        {/* =================================================
             MAIN DOWNLOAD BUTTON
-        ====================================== */}
+        ================================================== */}
 
         <button
           type="button"
@@ -353,19 +487,21 @@ export default function UniversalDownloader({
         >
           {loading ? (
             <span className="flex items-center gap-3">
+
               <span className="h-5 w-5 animate-spin rounded-full border-2 border-black/30 border-t-black" />
 
               Processing{" "}
               {platformName}...
+
             </span>
           ) : (
             "Get Download Options"
           )}
         </button>
 
-        {/* ======================================
+        {/* =================================================
             ERROR
-        ====================================== */}
+        ================================================== */}
 
         {error && (
           <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm text-red-400">
@@ -373,29 +509,32 @@ export default function UniversalDownloader({
           </div>
         )}
 
-        {/* ======================================
+        {/* =================================================
             RESULT
-        ====================================== */}
+        ================================================== */}
 
         {result && (
           <div className="mt-8">
 
-            {/* ==================================
+            {/* =============================================
                 PLATFORM BADGE
-            ================================== */}
+            ============================================== */}
 
             <div className="mb-5">
+
               <span className="inline-flex rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-cyan-400">
                 {platformName}
               </span>
+
             </div>
 
-            {/* ==================================
+            {/* =============================================
                 THUMBNAIL
-            ================================== */}
+            ============================================== */}
 
             {previewImage && (
               <div className="mb-6 overflow-hidden rounded-2xl border border-zinc-800 bg-black">
+
                 <img
                   src={proxyImageUrl}
                   alt={
@@ -409,12 +548,13 @@ export default function UniversalDownloader({
                       "none";
                   }}
                 />
+
               </div>
             )}
 
-            {/* ==================================
+            {/* =============================================
                 VIDEO TITLE
-            ================================== */}
+            ============================================== */}
 
             {result.title && (
               <h3 className="mb-8 text-xl font-bold leading-8 text-white">
@@ -422,30 +562,52 @@ export default function UniversalDownloader({
               </h3>
             )}
 
-            {/* ==================================
+            {/* =============================================
                 VIDEO DOWNLOAD
-            ================================== */}
+            ============================================== */}
 
             {videos.length > 0 && (
               <div className="rounded-2xl border border-zinc-800 bg-[#08111f] p-5">
 
                 {/* HEADER */}
 
-                <div className="mb-5 flex items-center gap-3">
+                <div className="mb-6">
 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-xl">
-                    🎬
+                  <div className="flex items-center gap-3">
+
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-xl">
+                      🎬
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-white">
+                        Video Downloads
+                      </h4>
+
+                      <p className="text-xs text-zinc-500">
+                        Choose your preferred video quality
+                      </p>
+                    </div>
+
                   </div>
 
-                  <div>
-                    <h4 className="font-bold text-white">
-                      Video Download
-                    </h4>
+                  {/* YOUTUBE QUALITY INFO */}
 
-                    <p className="text-xs text-zinc-500">
-                      Download video file
-                    </p>
-                  </div>
+                  {platform === "youtube" && (
+                    <div className="mt-5 rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-4 py-3">
+
+                      <p className="text-sm font-semibold text-cyan-400">
+                        Available YouTube Qualities
+                      </p>
+
+                      <p className="mt-1 text-xs leading-5 text-zinc-500">
+                        Available resolutions depend on
+                        the original YouTube video.
+                        4K may not be available for every video.
+                      </p>
+
+                    </div>
+                  )}
 
                 </div>
 
@@ -454,81 +616,122 @@ export default function UniversalDownloader({
                 <div className="space-y-3">
 
                   {videos.map(
-                    (video, index) => (
-                      <div
-                        key={`${video.url}-${index}`}
-                        className="flex items-center justify-between gap-4 rounded-xl border border-zinc-700 bg-[#0d1828] px-4 py-4 transition hover:border-cyan-500/50 hover:bg-[#111f32]"
-                      >
+                    (video, index) => {
 
-                        {/* VIDEO INFO */}
+                      const qualityLabel =
+                        getQualityLabel(
+                          video.quality,
+                          video.height
+                        );
 
-                        <div className="min-w-0">
+                      const mimeLabel =
+                        getMimeLabel(
+                          video.format,
+                          video.mimeType
+                        );
 
-                          <p className="font-semibold text-white">
-                            {video.quality ||
-                              `Video ${index + 1}`}
-                          </p>
+                      const hasAudio =
+                        video.hasAudio === true;
 
-                          <div className="mt-1 flex flex-wrap gap-2 text-xs text-zinc-500">
+                      return (
+                        <div
+                          key={`${video.url}-${index}`}
+                          className="flex flex-col gap-4 rounded-xl border border-zinc-700 bg-[#0d1828] px-4 py-4 transition hover:border-cyan-500/50 hover:bg-[#111f32] sm:flex-row sm:items-center sm:justify-between"
+                        >
 
-                            {video.format && (
-                              <span>
-                                {video.format}
-                              </span>
-                            )}
+                          {/* =================================
+                              VIDEO INFO
+                          ================================== */}
 
-                            {video.width &&
-                              video.height && (
-                                <span>
-                                  {video.width} ×{" "}
-                                  {video.height}
+                          <div className="min-w-0">
+
+                            <div className="flex flex-wrap items-center gap-3">
+
+                              <p className="text-lg font-bold text-white">
+                                {qualityLabel}
+                              </p>
+
+                              {qualityLabel === "4K" && (
+                                <span className="rounded-full border border-purple-500/30 bg-purple-500/10 px-2.5 py-1 text-[11px] font-bold text-purple-400">
+                                  ULTRA HD
                                 </span>
                               )}
 
-                            {video.hasAudio && (
-                              <span className="text-cyan-400">
-                                Audio Included
+                            </div>
+
+                            <div className="mt-2 flex flex-wrap gap-2 text-xs">
+
+                              {/* FORMAT */}
+
+                              <span className="rounded-md bg-zinc-800 px-2 py-1 text-zinc-400">
+                                {mimeLabel}
                               </span>
-                            )}
+
+                              {/* RESOLUTION */}
+
+                              {video.width &&
+                                video.height && (
+                                  <span className="rounded-md bg-zinc-800 px-2 py-1 text-zinc-400">
+                                    {video.width} ×{" "}
+                                    {video.height}
+                                  </span>
+                                )}
+
+                              {/* AUDIO */}
+
+                              {hasAudio ? (
+                                <span className="rounded-md bg-cyan-500/10 px-2 py-1 font-semibold text-cyan-400">
+                                  🔊 Audio Included
+                                </span>
+                              ) : (
+                                <span className="rounded-md bg-yellow-500/10 px-2 py-1 font-semibold text-yellow-400">
+                                  🔇 Video Only
+                                </span>
+                              )}
+
+                            </div>
 
                           </div>
 
+                          {/* =================================
+                              DOWNLOAD BUTTON
+                          ================================== */}
+
+                          <a
+                            href={video.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            download
+                            className="flex shrink-0 items-center justify-center rounded-xl bg-cyan-500 px-5 py-3 text-sm font-bold text-black transition hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20"
+                          >
+                            Download{" "}
+                            {qualityLabel}
+                          </a>
+
                         </div>
-
-                        {/* DOWNLOAD BUTTON */}
-
-                        <a
-                          href={video.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          download
-                          className="shrink-0 rounded-xl bg-cyan-500 px-4 py-2 text-sm font-bold text-black transition hover:bg-cyan-400"
-                        >
-                          Download Video
-                        </a>
-
-                      </div>
-                    )
+                      );
+                    }
                   )}
 
                 </div>
+
               </div>
             )}
 
-            {/* ==================================
+            {/* =============================================
                 NO VIDEO FOUND
-            ================================== */}
+            ============================================== */}
 
             {videos.length === 0 && (
               <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/10 px-5 py-4 text-sm text-yellow-400">
-                No downloadable video was
-                returned for this URL.
+                No downloadable video was returned
+                for this URL.
               </div>
             )}
 
-            {/* ==================================
+            {/* =============================================
                 NEW DOWNLOAD
-            ================================== */}
+            ============================================== */}
 
             <button
               type="button"
@@ -544,9 +747,9 @@ export default function UniversalDownloader({
 
       </div>
 
-      {/* ========================================
+      {/* ===================================================
           FOOTER TEXT
-      ======================================== */}
+      ==================================================== */}
 
       <p className="mt-5 text-center text-sm text-zinc-500">
         Free {platformName} downloader • No

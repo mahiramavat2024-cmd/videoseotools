@@ -7,21 +7,32 @@ import PremiumInsights from "@/components/PremiumInsights";
 type Props = {
   title: string;
   placeholder: string;
-  aiType: string;
+  aiType?: string;
+  type?: string;
+  buttonText?: string;
 };
 
 export default function GeneratorForm({
   title,
   placeholder,
   aiType,
+  type,
+  buttonText = "Generate",
 }: Props) {
   const [topic, setTopic] = useState("");
   const [results, setResults] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const generatorType = aiType || type || "";
+
   async function generate() {
     if (!topic.trim()) {
       alert("Please provide a topic or prompt.");
+      return;
+    }
+
+    if (!generatorType) {
+      alert("Generator type is missing.");
       return;
     }
 
@@ -35,7 +46,7 @@ export default function GeneratorForm({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          type: aiType,
+          type: generatorType,
           input: topic.trim(),
         }),
       });
@@ -52,12 +63,6 @@ export default function GeneratorForm({
         );
         return;
       }
-
-      /*
-       * Make sure results is always an array.
-       * This prevents:
-       * Cannot read properties of undefined (reading 'length')
-       */
 
       let generatedResults: string[] = [];
 
@@ -87,16 +92,19 @@ export default function GeneratorForm({
       }
 
       if (generatedResults.length === 0) {
-        alert(
-          "AI returned no results. Please check the Generate API response."
-        );
+        alert("AI returned no results.");
         return;
       }
 
       setResults(generatedResults);
     } catch (error) {
       console.error("AI Generation Error:", error);
-      alert("AI Generation Failed");
+
+      alert(
+        error instanceof Error
+          ? error.message
+          : "AI Generation Failed"
+      );
     } finally {
       setLoading(false);
     }
@@ -114,11 +122,11 @@ export default function GeneratorForm({
 
   return (
     <div className="mx-auto max-w-5xl">
-      <h1 className="mb-8 text-center text-5xl font-bold">
+      <h1 className="mb-8 text-center text-4xl font-bold md:text-5xl">
         {title}
       </h1>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <input
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
@@ -128,15 +136,15 @@ export default function GeneratorForm({
             }
           }}
           placeholder={placeholder}
-          className="flex-1 rounded-xl border border-zinc-700 bg-zinc-900 p-4 text-white outline-none focus:border-cyan-500"
+          className="h-14 flex-1 rounded-xl border border-zinc-700 bg-zinc-900 px-4 text-white outline-none transition focus:border-cyan-500"
         />
 
         <button
           onClick={generate}
           disabled={loading}
-          className="rounded-xl bg-cyan-500 px-8 font-bold text-black transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-14 rounded-xl bg-cyan-500 px-8 font-bold text-black transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {loading ? "Generating..." : "Generate"}
+          {loading ? "Generating..." : buttonText}
         </button>
       </div>
 
@@ -149,10 +157,10 @@ export default function GeneratorForm({
               return (
                 <div
                   key={`${item}-${index}`}
-                  className="flex items-center justify-between gap-6 rounded-xl border border-zinc-700 bg-zinc-900 p-5"
+                  className="flex flex-col gap-4 rounded-xl border border-zinc-700 bg-zinc-900 p-5 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="min-w-0">
-                    <p className="text-lg font-semibold text-white">
+                    <p className="break-words text-lg font-semibold text-white">
                       {item}
                     </p>
 

@@ -1,995 +1,600 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import Groq from "groq-sdk";
 
-/* =========================================================
-   NEXT.JS CONFIG
-========================================================= */
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
-/* =========================================================
-   TYPES
-========================================================= */
-
-type GenerateRequest = {
-  type?: string;
-  input?: string;
-  topic?: string;
-  prompt?: string;
-  content?: string;
-};
-
-type GroqResponse = {
-  id?: string;
-  object?: string;
-  created?: number;
-  model?: string;
-
-  choices?: Array<{
-    index?: number;
-
-    message?: {
-      role?: string;
-      content?: string | null;
-    };
-
-    finish_reason?: string;
-  }>;
-
-  error?: {
-    message?: string;
-    type?: string;
-    code?: string;
-  };
-};
-
-/* =========================================================
-   GROQ CONFIG
-========================================================= */
-
-const GROQ_API_URL =
-  "https://api.groq.com/openai/v1/chat/completions";
-
-const GROQ_MODEL =
-  process.env.GROQ_MODEL || "openai/gpt-oss-120b";
-
-/* =========================================================
-   SUPPORTED GENERATION TYPES
-========================================================= */
-
-const SUPPORTED_TYPES = new Set([
-  "title",
-  "description",
-  "tags",
-  "hashtags",
-  "hashtag",
-  "keyword",
-  "keywords",
-  "script",
-  "caption",
-  "visual-plan",
-  "script-titles",
-]);
-
-/* =========================================================
-   NORMALIZE GENERATION TYPE
-========================================================= */
-
-function normalizeType(value: string): string {
-  const type = value.trim().toLowerCase();
-
-  /*
-   * Frontend aliases
-   *
-   * keywords -> keyword
-   * hashtag  -> hashtags
-   */
-
-  if (type === "keywords") {
-    return "keyword";
-  }
-
-  if (type === "hashtag") {
-    return "hashtags";
-  }
-
-  return type;
-}
-
-/* =========================================================
-   BUILD AI PROMPT
-========================================================= */
-
-function buildPrompt(
-  type: string,
-  input: string
-): string {
+function getPrompt(type: string, input: string): string {
   switch (type) {
-    /* =====================================================
-       YOUTUBE TITLE
-    ===================================================== */
+    /* =========================================================
+       INSTAGRAM
+    ========================================================= */
+
+    case "instagram-keyword":
+      return `
+You are an expert Instagram SEO strategist.
+
+Generate 15 highly relevant Instagram keyword ideas for:
+
+"${input}"
+
+Requirements:
+- Focus on Instagram search intent.
+- Include short-tail and long-tail keywords.
+- Include relevant Reel and post keywords.
+- Keep every keyword directly related to the topic.
+- Avoid keyword stuffing.
+- Return ONLY keywords.
+- One keyword per line.
+- No numbering.
+- No explanations.
+`;
+
+    case "instagram-tags":
+      return `
+You are an Instagram hashtag expert.
+
+Generate 20 highly relevant Instagram hashtags for:
+
+"${input}"
+
+Requirements:
+- Mix broad, niche and specific hashtags.
+- Keep every hashtag relevant.
+- Suitable for Instagram Reels and posts.
+- Avoid spammy or unrelated hashtags.
+- Return ONLY hashtags.
+- One hashtag per line.
+- No numbering.
+- No explanations.
+`;
+
+    case "instagram-caption":
+      return `
+You are an expert Instagram copywriter.
+
+Create 10 engaging Instagram caption ideas for:
+
+"${input}"
+
+Requirements:
+- Suitable for Instagram posts and Reels.
+- Natural and conversational.
+- Mix emotional, funny, informative, curiosity and CTA styles.
+- Keep captions concise.
+- Avoid repetitive captions.
+- Return ONLY captions.
+- One caption per line.
+- No numbering.
+- No explanations.
+`;
+
+    case "instagram-script":
+      return `
+You are an expert Instagram Reels scriptwriter.
+
+Create 5 short Instagram Reel scripts for:
+
+"${input}"
+
+Each script must contain:
+
+HOOK:
+CONTENT:
+CTA:
+
+Requirements:
+- Strong hook in the first few seconds.
+- Designed for short-form video.
+- Natural conversational language.
+- Easy to record.
+- Make every script different.
+- Keep each script concise.
+
+Separate each script with a blank line.
+`;
+
+    case "instagram-seo-title":
+      return `
+You are an Instagram SEO and content strategist.
+
+Generate 10 SEO-friendly Instagram title ideas for:
+
+"${input}"
+
+Requirements:
+- Naturally include important topic keywords.
+- Suitable for Instagram Reels and posts.
+- Clear and clickable.
+- Avoid misleading clickbait.
+- Make every title different.
+- Return ONLY titles.
+- One title per line.
+- No numbering.
+- No explanations.
+`;
+
+    /* =========================================================
+       YOUTUBE
+    ========================================================= */
 
     case "title":
+    case "youtube-title":
       return `
-You are an expert YouTube title strategist.
-
-Create 10 strong YouTube title ideas for this topic:
+Generate 10 SEO-friendly YouTube video title ideas for:
 
 "${input}"
 
 Requirements:
-- Clear and engaging
-- SEO-friendly
-- Relevant to the topic
-- Use natural keywords
-- Avoid misleading clickbait
-- Avoid excessive capitalization
-- Keep titles reasonably concise
-- Make every title meaningfully different
-- Do not make false claims
-- Return ONLY a numbered list of 10 titles
+- Clear and engaging.
+- Relevant to the topic.
+- Natural keyword usage.
+- Avoid misleading clickbait.
+- Return ONLY titles.
+- One title per line.
+- No numbering.
 `;
-
-    /* =====================================================
-       YOUTUBE DESCRIPTION
-    ===================================================== */
-
-    case "description":
-      return `
-You are an expert YouTube SEO content writer.
-
-Write a useful YouTube description for this video topic:
-
-"${input}"
-
-Requirements:
-- Explain the video clearly
-- Use relevant keywords naturally
-- Make it useful for viewers
-- Include a natural call to action
-- Do not keyword stuff
-- Do not make false claims
-- Use readable paragraphs
-- Make it suitable for YouTube
-- Return ONLY the finished description
-`;
-
-    /* =====================================================
-       YOUTUBE TAGS
-    ===================================================== */
-
-    case "tags":
-      return `
-You are a YouTube SEO keyword specialist.
-
-Generate relevant YouTube tags for:
-
-"${input}"
-
-Requirements:
-- Generate 20 relevant tags
-- Mix broad and specific keywords
-- Include useful long-tail variations
-- Match the video topic
-- Match likely search intent
-- Do not use unrelated keywords
-- Do not repeat the same tag
-- Return ONLY a comma-separated list
-`;
-
-    /* =====================================================
-       YOUTUBE HASHTAGS
-    ===================================================== */
-
-    case "hashtags":
-      return `
-You are a YouTube content optimization specialist.
-
-Generate relevant YouTube hashtags for:
-
-"${input}"
-
-Requirements:
-- Generate 10 relevant hashtags
-- Keep them closely related to the topic
-- Avoid unrelated hashtags
-- Avoid misleading hashtags
-- Avoid duplicate hashtags
-- Use clean hashtag formatting
-- Every hashtag should begin with #
-- Return ONLY the hashtags
-`;
-
-    /* =====================================================
-       YOUTUBE KEYWORDS
-    ===================================================== */
 
     case "keyword":
+    case "youtube-keyword":
       return `
-You are an expert YouTube keyword research specialist.
-
-Generate useful YouTube keyword ideas for:
+Generate 15 relevant YouTube SEO keyword ideas for:
 
 "${input}"
 
 Requirements:
-- Generate exactly 20 keyword ideas
-- Include broad keywords
-- Include specific long-tail keywords
-- Match search intent
-- Match the actual video topic
-- Include natural search phrases
-- Avoid unrelated keywords
-- Avoid duplicate keywords
-- Do not add numbering
-- Do not add explanations
-- Return ONE keyword per line
+- Mix short-tail and long-tail keywords.
+- Focus on search intent.
+- Keep every keyword relevant.
+- Return ONLY keywords.
+- One keyword per line.
+- No numbering.
 `;
 
-    /* =====================================================
-       YOUTUBE SCRIPT
-    ===================================================== */
-
-    case "script":
+    case "tags":
+    case "youtube-tags":
       return `
-You are an experienced YouTube script writer.
-
-Create an engaging YouTube script based on:
+Generate 20 relevant YouTube video tags for:
 
 "${input}"
 
 Requirements:
-- Start with a strong hook
-- Use natural spoken language
-- Keep the script relevant to the topic
-- Include a clear beginning, middle and ending
-- Use smooth transitions
-- Keep the information practical and useful
-- Avoid fake claims
-- Do not guarantee views, subscribers or viral results
-- Make it suitable for YouTube narration
-- Follow requested duration, language, content type and tone if provided
-- Use headings when useful
-- Return ONLY the finished script
+- Mix broad and specific tags.
+- Include natural keyword variations.
+- Avoid unrelated tags.
+- Return ONLY tags.
+- One tag per line.
 `;
 
-    /* =====================================================
-       SOCIAL MEDIA CAPTION
-    ===================================================== */
-
-    case "caption":
+    case "hashtags":
+    case "youtube-hashtags":
       return `
-Create a short and engaging social media caption based on:
+Generate 15 relevant YouTube hashtags for:
 
 "${input}"
 
 Requirements:
-- Natural
-- Relevant
-- Easy to read
-- Engaging
-- Include a simple call to action
-- Do not make false claims
-- Avoid unnecessary hashtags
-- Return ONLY the caption
+- Relevant to the topic.
+- Mix broad and niche hashtags.
+- Return ONLY hashtags.
+- One hashtag per line.
 `;
 
-    /* =====================================================
-       VISUAL PLAN
-    ===================================================== */
-
-    case "visual-plan":
+    case "description":
+    case "youtube-description":
       return `
-Create a detailed visual production plan for the following YouTube script:
-
-"${input}"
-
-For each major section, suggest:
-
-1. Scene / section
-2. Visual footage
-3. B-roll
-4. Camera shots
-5. Graphics or on-screen text
-6. Transitions
-7. Relevant visual effects
-8. Sound/music suggestions when appropriate
-
-Keep the suggestions practical for a professional video editor.
-
-Make the visual plan easy to follow during editing.
-
-Return ONLY the visual production plan.
-`;
-
-    /* =====================================================
-       SCRIPT SEO TITLES
-    ===================================================== */
-
-    case "script-titles":
-      return `
-Create 10 SEO-friendly YouTube titles based on this script:
+Write an SEO-friendly YouTube video description for:
 
 "${input}"
 
 Requirements:
-- Relevant to the actual script
-- Engaging but not misleading
-- Natural keywords
-- Good search intent
-- Avoid fake claims
-- Make each title meaningfully different
-- Return ONLY a numbered list of 10 titles
+- Explain the topic clearly.
+- Naturally include relevant keywords.
+- Make it readable.
+- Avoid keyword stuffing.
+- Include a natural call to action.
 `;
 
-    /* =====================================================
-       FALLBACK
-    ===================================================== */
+    /* =========================================================
+       FACEBOOK
+    ========================================================= */
+
+    case "facebook-keyword":
+      return `
+Generate 15 Facebook SEO keyword ideas for:
+
+"${input}"
+
+Return ONLY one keyword per line.
+No numbering.
+No explanations.
+`;
+
+    case "facebook-tags":
+      return `
+Generate 20 relevant Facebook hashtags/tags for:
+
+"${input}"
+
+Mix broad, niche and specific tags.
+
+Return ONLY one tag per line.
+No numbering.
+No explanations.
+`;
+
+    case "facebook-caption":
+      return `
+Create 10 engaging Facebook caption ideas for:
+
+"${input}"
+
+Use a mixture of emotional, informative, funny and CTA-focused styles.
+
+Return ONLY captions, one per line.
+No numbering.
+`;
+
+    case "facebook-script":
+      return `
+Create 5 short Facebook video/Reel scripts for:
+
+"${input}"
+
+Each script should contain:
+
+HOOK:
+CONTENT:
+CTA:
+
+Keep the scripts concise and engaging.
+Separate each script with a blank line.
+`;
+
+    case "facebook-seo-title":
+      return `
+Generate 10 SEO-friendly Facebook post/video title ideas for:
+
+"${input}"
+
+Return ONLY titles.
+One title per line.
+No numbering.
+No explanations.
+`;
+
+    /* =========================================================
+       TIKTOK
+    ========================================================= */
+
+    case "tiktok-keyword":
+      return `
+Generate 15 TikTok SEO keyword ideas for:
+
+"${input}"
+
+Focus on TikTok search intent and discoverability.
+
+Return ONLY keywords.
+One keyword per line.
+No numbering.
+`;
+
+    case "tiktok-tags":
+      return `
+Generate 20 relevant TikTok hashtags for:
+
+"${input}"
+
+Mix broad, niche and trending-style relevant hashtags.
+
+Return ONLY hashtags.
+One per line.
+No numbering.
+`;
+
+    case "tiktok-caption":
+      return `
+Create 10 short and engaging TikTok captions for:
+
+"${input}"
+
+Make them natural, catchy and suitable for short-form video.
+
+Return ONLY captions.
+One per line.
+No numbering.
+`;
+
+    case "tiktok-script":
+      return `
+Create 5 viral-style TikTok video scripts for:
+
+"${input}"
+
+Each script must contain:
+
+HOOK:
+CONTENT:
+CTA:
+
+Keep them short and easy to record.
+Separate each script with a blank line.
+`;
+
+    case "tiktok-seo-title":
+      return `
+Generate 10 SEO-friendly TikTok title ideas for:
+
+"${input}"
+
+Return ONLY titles.
+One title per line.
+No numbering.
+`;
+
+    /* =========================================================
+       X / TWITTER
+    ========================================================= */
+
+    case "x-keyword":
+      return `
+Generate 15 relevant X/Twitter keyword ideas for:
+
+"${input}"
+
+Return ONLY keywords.
+One keyword per line.
+No numbering.
+`;
+
+    case "x-tags":
+      return `
+Generate 20 relevant X/Twitter hashtags for:
+
+"${input}"
+
+Return ONLY hashtags.
+One hashtag per line.
+No numbering.
+`;
+
+    case "x-caption":
+      return `
+Create 10 engaging X/Twitter post ideas for:
+
+"${input}"
+
+Keep them concise, natural and conversation-friendly.
+
+Return ONLY the posts.
+One per line.
+No numbering.
+`;
+
+    case "x-script":
+      return `
+Create 5 short X video content scripts for:
+
+"${input}"
+
+Each should contain:
+
+HOOK:
+CONTENT:
+CTA:
+
+Keep them concise.
+Separate each script with a blank line.
+`;
+
+    case "x-seo-title":
+      return `
+Generate 10 SEO-friendly X/Twitter post title ideas for:
+
+"${input}"
+
+Return ONLY titles.
+One title per line.
+No numbering.
+`;
+
+    /* =========================================================
+       PINTEREST
+    ========================================================= */
+
+    case "pinterest-keyword":
+      return `
+Generate 15 Pinterest SEO keyword ideas for:
+
+"${input}"
+
+Focus on Pinterest search intent.
+
+Return ONLY keywords.
+One keyword per line.
+No numbering.
+`;
+
+    case "pinterest-tags":
+      return `
+Generate 20 relevant Pinterest tags/hashtags for:
+
+"${input}"
+
+Return ONLY tags.
+One tag per line.
+No numbering.
+`;
+
+    case "pinterest-caption":
+      return `
+Create 10 Pinterest SEO-friendly descriptions/captions for:
+
+"${input}"
+
+Make them searchable, natural and useful.
+
+Return ONLY descriptions.
+One per line.
+No numbering.
+`;
+
+    case "pinterest-script":
+      return `
+Create 5 short Pinterest video/Idea Pin scripts for:
+
+"${input}"
+
+Each script should contain:
+
+HOOK:
+CONTENT:
+CTA:
+
+Keep each script concise.
+Separate each script with a blank line.
+`;
+
+    case "pinterest-seo-title":
+      return `
+Generate 10 SEO-friendly Pinterest title ideas for:
+
+"${input}"
+
+Return ONLY titles.
+One title per line.
+No numbering.
+`;
+
+    /* =========================================================
+       DEFAULT
+    ========================================================= */
 
     default:
       return `
-You are an AI assistant for YouTube creators.
-
-Create useful content based on:
+Generate useful content ideas for:
 
 "${input}"
 
-Requirements:
-- Be relevant
-- Be practical
-- Be clear
-- Avoid false claims
-- Avoid unnecessary repetition
-- Return only the requested content
+Return concise results.
+One idea per line.
+No numbering.
 `;
   }
 }
 
-/* =========================================================
-   GET
-========================================================= */
-
-export async function GET() {
-  return NextResponse.json(
-    {
-      success: true,
-      message:
-        "VideoSEOTools AI Generate API is working.",
-
-      method: "POST",
-
-      model: GROQ_MODEL,
-
-      endpoint: "/api/generate",
-
-      supportedTypes: [
-        "title",
-        "description",
-        "tags",
-        "hashtags",
-        "hashtag",
-        "keyword",
-        "keywords",
-        "script",
-        "caption",
-        "visual-plan",
-        "script-titles",
-      ],
-    },
-    {
-      status: 200,
-    }
-  );
-}
-
-/* =========================================================
-   POST
-========================================================= */
-
-export async function POST(req: Request) {
+export async function POST(request: NextRequest) {
   try {
-    /* =======================================================
-       1. CHECK API KEY
-    ======================================================= */
+    const body = await request.json();
 
-    const apiKey = process.env.GROQ_API_KEY;
+    const type = String(body?.type || "").trim();
+    const input = String(body?.input || "").trim();
 
-    if (!apiKey) {
-      console.error(
-        "[VideoSEOTools] GROQ_API_KEY is missing."
-      );
-
+    if (!type) {
       return NextResponse.json(
         {
           success: false,
-          error:
-            "AI service is not configured. GROQ_API_KEY is missing.",
-          code: "MISSING_GROQ_API_KEY",
+          error: "Generator type is required.",
         },
-        {
-          status: 500,
-        }
+        { status: 400 }
       );
     }
-
-    /* =======================================================
-       2. READ REQUEST JSON
-    ======================================================= */
-
-    let body: GenerateRequest;
-
-    try {
-      body = (await req.json()) as GenerateRequest;
-    } catch (error) {
-      console.error(
-        "[VideoSEOTools] Invalid request JSON:",
-        error
-      );
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Invalid JSON request.",
-          code: "INVALID_REQUEST_JSON",
-        },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    /* =======================================================
-       3. GET + NORMALIZE TYPE
-    ======================================================= */
-
-    const rawType = String(
-      body.type || ""
-    )
-      .trim()
-      .toLowerCase();
-
-    if (!rawType) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Generation type is required.",
-          code: "MISSING_GENERATION_TYPE",
-        },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    /*
-     * IMPORTANT:
-     *
-     * keywords -> keyword
-     * hashtag  -> hashtags
-     */
-
-    const type = normalizeType(rawType);
-
-    /* =======================================================
-       4. VALIDATE TYPE
-    ======================================================= */
-
-    if (!SUPPORTED_TYPES.has(rawType)) {
-      return NextResponse.json(
-        {
-          success: false,
-
-          error:
-            `Unsupported generation type: ${rawType}`,
-
-          code:
-            "UNSUPPORTED_GENERATION_TYPE",
-
-          supportedTypes: [
-            "title",
-            "description",
-            "tags",
-            "hashtags",
-            "hashtag",
-            "keyword",
-            "keywords",
-            "script",
-            "caption",
-            "visual-plan",
-            "script-titles",
-          ],
-        },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    /* =======================================================
-       5. GET INPUT
-    ======================================================= */
-
-    const input = String(
-      body.input ||
-        body.topic ||
-        body.prompt ||
-        body.content ||
-        ""
-    ).trim();
-
-    /* =======================================================
-       6. VALIDATE INPUT
-    ======================================================= */
 
     if (!input) {
       return NextResponse.json(
         {
           success: false,
-          error:
-            "Please provide a topic or prompt.",
-          code: "MISSING_INPUT",
+          error: "Please enter a topic or prompt.",
         },
-        {
-          status: 400,
-        }
+        { status: 400 }
       );
     }
 
-    /* =======================================================
-       7. INPUT LENGTH SAFETY
-    ======================================================= */
+    const apiKey = process.env.GROQ_API_KEY;
 
-    const MAX_INPUT_LENGTH = 50000;
-
-    if (input.length > MAX_INPUT_LENGTH) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "Input is too long. Please reduce the content and try again.",
-          code: "INPUT_TOO_LONG",
-        },
-        {
-          status: 413,
-        }
-      );
-    }
-
-    /* =======================================================
-       8. LOG REQUEST
-    ======================================================= */
-
-    console.log(
-      "[VideoSEOTools] AI Generate Request:",
-      {
-        rawType,
-        normalizedType: type,
-        inputLength: input.length,
-        model: GROQ_MODEL,
-      }
-    );
-
-    /* =======================================================
-       9. SYSTEM PROMPT
-    ======================================================= */
-
-    const systemPrompt = `
-You are VideoSEOTools AI.
-
-You help YouTube creators create and optimize content.
-
-Important rules:
-
-- Give useful and practical answers.
-- Stay relevant to the user's topic.
-- Never guarantee views, subscribers, rankings or revenue.
-- Never intentionally create misleading metadata.
-- Do not use unrelated keywords.
-- Keep generated content natural.
-- Follow the requested output format exactly.
-- Do not add unnecessary explanations before or after the result.
-`;
-
-    /* =======================================================
-       10. USER PROMPT
-    ======================================================= */
-
-    const userPrompt =
-      buildPrompt(type, input);
-
-    /* =======================================================
-       11. TOKEN LIMIT
-    ======================================================= */
-
-    let maxTokens = 1500;
-
-    switch (type) {
-      case "script":
-        maxTokens = 6000;
-        break;
-
-      case "visual-plan":
-        maxTokens = 5000;
-        break;
-
-      case "description":
-        maxTokens = 1800;
-        break;
-
-      case "title":
-      case "script-titles":
-        maxTokens = 1500;
-        break;
-
-      case "tags":
-      case "hashtags":
-      case "keyword":
-        maxTokens = 1500;
-        break;
-
-      case "caption":
-        maxTokens = 700;
-        break;
-
-      default:
-        maxTokens = 1500;
-    }
-
-    /* =======================================================
-       12. ABORT CONTROLLER
-    ======================================================= */
-
-    const controller =
-      new AbortController();
-
-    const timeout = setTimeout(() => {
-      controller.abort();
-    }, 60000);
-
-    /* =======================================================
-       13. CALL GROQ
-    ======================================================= */
-
-    let groqResponse: Response;
-
-    try {
-      groqResponse = await fetch(
-        GROQ_API_URL,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-
-            Authorization:
-              `Bearer ${apiKey}`,
-          },
-
-          body: JSON.stringify({
-            model: GROQ_MODEL,
-
-            messages: [
-              {
-                role: "system",
-                content: systemPrompt,
-              },
-              {
-                role: "user",
-                content: userPrompt,
-              },
-            ],
-
-            temperature: 0.7,
-
-            max_tokens: maxTokens,
-          }),
-
-          signal: controller.signal,
-        }
-      );
-    } catch (error) {
-      clearTimeout(timeout);
-
-      console.error(
-        "[VideoSEOTools] Groq fetch error:",
-        error
-      );
-
-      if (
-        error instanceof Error &&
-        error.name === "AbortError"
-      ) {
-        return NextResponse.json(
-          {
-            success: false,
-            error:
-              "AI request timed out. Please try again.",
-            code: "AI_REQUEST_TIMEOUT",
-          },
-          {
-            status: 504,
-          }
-        );
-      }
+    if (!apiKey) {
+      console.error("GROQ_API_KEY is missing.");
 
       return NextResponse.json(
         {
           success: false,
-          error:
-            "Unable to connect to the AI service. Please try again.",
-          code: "AI_CONNECTION_ERROR",
+          error: "AI service is not configured.",
         },
-        {
-          status: 502,
-        }
+        { status: 500 }
       );
     }
 
-    clearTimeout(timeout);
+    const prompt = getPrompt(type, input);
 
-    /* =======================================================
-       14. READ RAW RESPONSE
-    ======================================================= */
+    const completion = await groq.chat.completions.create({
+      model: "openai/gpt-oss-20b",
 
-    const rawText =
-      await groqResponse.text();
+      temperature: 0.8,
 
-    console.log(
-      "[VideoSEOTools] Groq HTTP Status:",
-      groqResponse.status
-    );
+      max_completion_tokens: 2048,
 
-    /* =======================================================
-       15. EMPTY RESPONSE
-    ======================================================= */
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are VidNova's AI social media and SEO content assistant. Follow the requested output format exactly. Do not add unnecessary explanations.",
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+    });
 
-    if (
-      !rawText ||
-      !rawText.trim()
-    ) {
-      console.error(
-        "[VideoSEOTools] Groq returned an empty response."
-      );
+    const content =
+      completion.choices?.[0]?.message?.content?.trim() || "";
+
+    if (!content) {
+      console.error("Groq returned empty content.");
 
       return NextResponse.json(
         {
           success: false,
-          error:
-            "AI provider returned an empty response. Please try again.",
-          code: "EMPTY_AI_RESPONSE",
+          error: "AI returned an empty response.",
         },
-        {
-          status: 502,
-        }
+        { status: 502 }
       );
     }
 
-    /* =======================================================
-       16. PARSE JSON
-    ======================================================= */
+    const results = content
+      .split(/\n+/)
+      .map((item) =>
+        item
+          .replace(/^\s*[-*•]\s*/, "")
+          .replace(/^\s*\d+[\).\s-]+\s*/, "")
+          .trim()
+      )
+      .filter(Boolean);
 
-    let groqData: GroqResponse;
-
-    try {
-      groqData =
-        JSON.parse(rawText) as GroqResponse;
-    } catch (error) {
-      console.error(
-        "[VideoSEOTools] Groq returned invalid JSON:",
-        rawText
-      );
-
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "AI provider returned an invalid response. Please try again.",
-          code: "INVALID_AI_RESPONSE",
-        },
-        {
-          status: 502,
-        }
-      );
-    }
-
-    /* =======================================================
-       17. HANDLE GROQ API ERROR
-    ======================================================= */
-
-    if (!groqResponse.ok) {
-      const providerMessage =
-        groqData.error?.message ||
-        "AI generation failed.";
-
-      console.error(
-        "[VideoSEOTools] Groq API Error:",
-        {
-          status: groqResponse.status,
-          type: groqData.error?.type,
-          code: groqData.error?.code,
-          message: providerMessage,
-        }
-      );
-
-      return NextResponse.json(
-        {
-          success: false,
-
-          error: providerMessage,
-
-          code:
-            groqData.error?.code ||
-            "GROQ_API_ERROR",
-        },
-        {
-          status:
-            groqResponse.status || 502,
-        }
-      );
-    }
-
-    /* =======================================================
-       18. EXTRACT AI CONTENT
-    ======================================================= */
-
-    const generatedContent =
-      groqData.choices?.[0]?.message?.content
-        ?.trim() || "";
-
-    /* =======================================================
-       19. EMPTY AI CONTENT
-    ======================================================= */
-
-    if (!generatedContent) {
-      console.error(
-        "[VideoSEOTools] No generated content:",
-        groqData
-      );
-
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "AI did not return any generated content. Please try again.",
-          code: "NO_GENERATED_CONTENT",
-        },
-        {
-          status: 502,
-        }
-      );
-    }
-
-    /* =======================================================
-       20. SUCCESS LOG
-    ======================================================= */
-
-    console.log(
-      "[VideoSEOTools] AI Generation Successful:",
-      {
-        rawType,
-        normalizedType: type,
-        model: GROQ_MODEL,
-        outputLength:
-          generatedContent.length,
-
-        finishReason:
-          groqData.choices?.[0]
-            ?.finish_reason || null,
-      }
-    );
-
-    /* =======================================================
-       21. COMMON RESPONSE
-    ======================================================= */
-
-    const response: Record<
-      string,
-      unknown
-    > = {
+    return NextResponse.json({
       success: true,
-
+      results,
       type,
-
-      requestedType: rawType,
-
-      model: GROQ_MODEL,
-
-      result: generatedContent,
-
-      content: generatedContent,
-
-      output: generatedContent,
-
-      text: generatedContent,
-
-      generatedContent,
-    };
-
-    /* =======================================================
-       22. TYPE-SPECIFIC RESPONSE
-    ======================================================= */
-
-    if (type === "script") {
-      response.script =
-        generatedContent;
-    }
-
-    if (type === "visual-plan") {
-      response.visualPlan =
-        generatedContent;
-    }
-
-    if (type === "script-titles") {
-      response.scriptTitles =
-        generatedContent;
-    }
-
-    if (type === "title") {
-      response.titles =
-        generatedContent;
-    }
-
-    if (type === "description") {
-      response.description =
-        generatedContent;
-    }
-
-    if (type === "tags") {
-      response.tags =
-        generatedContent;
-    }
-
-    if (type === "hashtags") {
-      response.hashtags =
-        generatedContent;
-    }
-
-    if (type === "keyword") {
-      response.keywords =
-        generatedContent;
-    }
-
-    if (type === "caption") {
-      response.caption =
-        generatedContent;
-    }
-
-    /* =======================================================
-       23. RETURN SUCCESS
-    ======================================================= */
-
-    return NextResponse.json(
-      response,
-      {
-        status: 200,
-      }
-    );
+      input,
+    });
   } catch (error) {
-    /* =======================================================
-       GLOBAL ERROR
-    ======================================================= */
+    console.error("AI Generation Error:", error);
 
-    console.error(
-      "[VideoSEOTools] Generate API Error:",
-      error
-    );
+    let errorMessage =
+      "Something went wrong while generating content.";
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
 
     return NextResponse.json(
       {
         success: false,
-
-        error:
-          error instanceof Error
-            ? error.message
-            : "Something went wrong while generating content.",
-
-        code:
-          "INTERNAL_GENERATION_ERROR",
+        error: errorMessage,
       },
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 }
