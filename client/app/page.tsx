@@ -7,7 +7,7 @@ import PopularTools from "@/components/PopularTools";
 import Features from "@/components/Features";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import UniversalDownloaderHub from "@/components/UniversalDownloaderHub";
+
 
 export default function Home() {
   return (
