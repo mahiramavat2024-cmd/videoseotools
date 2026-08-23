@@ -1,112 +1,201 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Hero() {
+  const [topic, setTopic] = useState("");
+
+  function handleGenerate() {
+    if (!topic.trim()) {
+      document
+        .getElementById("tools")
+        ?.scrollIntoView({ behavior: "smooth" });
+
+      return;
+    }
+
+    window.location.href = `/youtube/keyword-generator?topic=${encodeURIComponent(
+      topic.trim()
+    )}`;
+  }
+
+  function handleKeyDown(
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) {
+    if (e.key === "Enter") {
+      handleGenerate();
+    }
+  }
+
+  const popularTopics = [
+    "YouTube SEO",
+    "Gaming",
+    "Travel",
+    "AI",
+    "Fitness",
+    "Technology",
+  ];
+
   return (
-    <section className="relative overflow-hidden bg-[#08111f] px-6 py-20 text-center">
+    <section className="relative overflow-hidden bg-[#08111f] px-6 pb-20 pt-16 text-center md:pb-24 md:pt-24">
       {/* Background Glow */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[550px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="pointer-events-none absolute left-0 top-1/2 h-[300px] w-[300px] rounded-full bg-blue-500/5 blur-3xl" />
 
-        {/* SEO Badge */}
+      <div className="relative mx-auto max-w-6xl">
+
+        {/* Badge */}
         <span className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2 text-sm font-semibold text-cyan-400">
-          🚀 Free AI YouTube SEO Tools
+          🚀 FREE YOUTUBE SEO TOOLS
         </span>
 
-        {/* Main SEO Heading */}
-        <h1 className="mt-8 text-5xl font-extrabold leading-tight tracking-tight text-white md:text-7xl">
-          Free YouTube SEO Tools
+        {/* Heading */}
+        <h1 className="mx-auto mt-7 max-w-5xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          Grow Your YouTube Channel
           <br />
           <span className="text-cyan-400">
-            Powered by AI
+            With Smarter SEO Tools
           </span>
         </h1>
 
-        {/* Introduction */}
-        <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-zinc-300 md:text-xl">
-          Create better YouTube titles, descriptions, tags, hashtags, and
-          content ideas with free AI-powered YouTube SEO tools. Optimize your
-          videos, discover content ideas, and build a better YouTube content
-          strategy with VideoSEOTools.
+        {/* Description */}
+        <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-zinc-300 sm:text-lg md:text-xl md:leading-8">
+          Find powerful keywords, create click-worthy titles, generate tags,
+          write descriptions and build better YouTube content with free
+          AI-powered tools.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="mt-12 flex flex-wrap justify-center gap-5">
+        {/* MAIN SEARCH TOOL */}
+        <div className="mx-auto mt-10 max-w-4xl">
+          <div className="rounded-2xl border border-zinc-700 bg-[#0d1828] p-2 shadow-2xl shadow-black/20 md:p-3">
 
-          {/* 100% Creator Growth */}
-          <Link
-            href="/blog"
-            className="rounded-xl bg-cyan-500 px-8 py-4 font-bold text-black transition hover:bg-cyan-400"
-          >
-            🚀 100% Creator Growth →
-          </Link>
+            <div className="flex flex-col gap-2 md:flex-row">
 
-          {/* Free SEO Tools */}
-          <Link
-            href="#tools"
-            className="rounded-xl border border-zinc-700 px-8 py-4 font-semibold text-white transition hover:bg-zinc-900"
-          >
-            Explore Free SEO Tools
-          </Link>
+              {/* Input */}
+              <div className="relative flex-1">
+                <span className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-xl">
+                  🔍
+                </span>
 
+                <input
+                  type="text"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Enter your YouTube video topic..."
+                  className="h-14 w-full rounded-xl border border-zinc-700 bg-[#08111f] pl-14 pr-5 text-base text-white outline-none transition placeholder:text-zinc-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 md:h-16"
+                />
+              </div>
+
+              {/* Generate Button */}
+              <button
+                onClick={handleGenerate}
+                className="h-14 rounded-xl bg-cyan-500 px-7 font-bold text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 md:h-16"
+              >
+                🔍 Generate Keywords
+              </button>
+
+            </div>
+          </div>
+
+          {/* Small helper text */}
+          <p className="mt-3 text-sm text-zinc-500">
+            Enter a topic and discover keyword ideas for your next video.
+          </p>
         </div>
 
-        {/* Tool Highlights */}
-        <div className="mt-16 grid grid-cols-2 gap-5 text-center md:grid-cols-4">
+        {/* POPULAR TOPICS */}
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-2">
+          <span className="mr-1 text-sm text-zinc-500">
+            Popular:
+          </span>
 
-          {/* YouTube Titles */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-            <div className="text-3xl">🎬</div>
+          {popularTopics.map((item) => (
+            <button
+              key={item}
+              onClick={() => setTopic(item)}
+              className="rounded-full border border-zinc-800 bg-[#0d1828] px-4 py-2 text-sm text-zinc-300 transition hover:border-cyan-500/40 hover:bg-cyan-500/5 hover:text-cyan-400"
+            >
+              {item}
+            </button>
+          ))}
+        </div>
 
-            <h2 className="mt-3 text-lg font-bold text-white">
-              YouTube Titles
-            </h2>
+        {/* QUICK TOOLS */}
+        <div className="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-3 md:grid-cols-5">
 
-            <p className="mt-2 text-sm leading-6 text-zinc-400">
-              Generate engaging title ideas for your videos.
-            </p>
-          </div>
+          {/* Titles */}
+          <Link
+            href="/youtube/title-generator"
+            className="group rounded-xl border border-zinc-800 bg-[#0d1828] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/50 hover:bg-[#101d30]"
+          >
+            <div className="text-2xl">🎬</div>
 
-          {/* Descriptions */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-            <div className="text-3xl">📝</div>
+            <div className="mt-2 text-sm font-semibold text-white group-hover:text-cyan-400">
+              Titles
+            </div>
+          </Link>
 
-            <h2 className="mt-3 text-lg font-bold text-white">
-              Descriptions
-            </h2>
+          {/* Keywords */}
+          <Link
+            href="/youtube/keyword-generator"
+            className="group rounded-xl border border-cyan-500/20 bg-cyan-500/5 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/50"
+          >
+            <div className="text-2xl">🔑</div>
 
-            <p className="mt-2 text-sm leading-6 text-zinc-400">
-              Create structured and SEO-friendly descriptions.
-            </p>
-          </div>
+            <div className="mt-2 text-sm font-semibold text-white group-hover:text-cyan-400">
+              Keywords
+            </div>
+          </Link>
 
-          {/* YouTube Tags */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-            <div className="text-3xl">🏷️</div>
+          {/* Tags */}
+          <Link
+            href="/youtube/tags-generator"
+            className="group rounded-xl border border-zinc-800 bg-[#0d1828] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/50 hover:bg-[#101d30]"
+          >
+            <div className="text-2xl">🏷️</div>
 
-            <h2 className="mt-3 text-lg font-bold text-white">
-              YouTube Tags
-            </h2>
-
-            <p className="mt-2 text-sm leading-6 text-zinc-400">
-              Generate relevant tags based on your video topic.
-            </p>
-          </div>
+            <div className="mt-2 text-sm font-semibold text-white group-hover:text-cyan-400">
+              Tags
+            </div>
+          </Link>
 
           {/* Hashtags */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
-            <div className="text-3xl">#️⃣</div>
+          <Link
+            href="/youtube/hashtag-generator"
+            className="group rounded-xl border border-zinc-800 bg-[#0d1828] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/50 hover:bg-[#101d30]"
+          >
+            <div className="text-2xl">#️⃣</div>
 
-            <h2 className="mt-3 text-lg font-bold text-white">
+            <div className="mt-2 text-sm font-semibold text-white group-hover:text-cyan-400">
               Hashtags
-            </h2>
+            </div>
+          </Link>
 
-            <p className="mt-2 text-sm leading-6 text-zinc-400">
-              Find relevant hashtag ideas for your content.
-            </p>
-          </div>
+          {/* Scripts */}
+          <Link
+            href="/youtube/script-generator"
+            className="group rounded-xl border border-zinc-800 bg-[#0d1828] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/50 hover:bg-[#101d30]"
+          >
+            <div className="text-2xl">🎥</div>
+
+            <div className="mt-2 text-sm font-semibold text-white group-hover:text-cyan-400">
+              Scripts
+            </div>
+          </Link>
 
         </div>
+
+        {/* Trust Line */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-zinc-500">
+          <span>✓ Free to use</span>
+          <span>✓ AI-powered</span>
+          <span>✓ No complicated setup</span>
+          <span>✓ Built for creators</span>
+        </div>
+
       </div>
     </section>
   );

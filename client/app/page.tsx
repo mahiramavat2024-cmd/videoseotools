@@ -22,6 +22,101 @@ export default function Home() {
       </section>
 
       {/* =========================================================
+          CREATOR REVIEWS
+      ========================================================= */}
+      <section className="relative overflow-hidden border-y border-zinc-800/70 bg-[#0a1424] px-6 py-20">
+        {/* Background Glow */}
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl">
+          {/* Header */}
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2 text-sm font-bold tracking-wide text-cyan-400">
+              ⭐ CREATOR REVIEWS
+            </span>
+
+            <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+              Built for YouTube Creators
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-zinc-400">
+              See why creators use simple AI-powered tools to speed up their
+              YouTube content workflow.
+            </p>
+          </div>
+
+          {/* Reviews */}
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {/* REVIEW 1 */}
+            <div className="rounded-2xl border border-zinc-800 bg-[#0d1828] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-[0_0_30px_rgba(6,182,212,0.08)]">
+              <div className="text-lg tracking-wide text-yellow-400">
+                ★★★★★
+              </div>
+
+              <p className="mt-5 text-base leading-7 text-zinc-300">
+                “A simple workflow for getting title, keyword and description
+                ideas before publishing a video.”
+              </p>
+
+              <div className="mt-6 border-t border-zinc-800 pt-5">
+                <p className="font-bold text-white">YouTube Creator</p>
+
+                <p className="mt-1 text-sm text-zinc-500">
+                  Content & SEO Workflow
+                </p>
+              </div>
+            </div>
+
+            {/* REVIEW 2 */}
+            <div className="rounded-2xl border border-zinc-800 bg-[#0d1828] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-[0_0_30px_rgba(6,182,212,0.08)]">
+              <div className="text-lg tracking-wide text-yellow-400">
+                ★★★★★
+              </div>
+
+              <p className="mt-5 text-base leading-7 text-zinc-300">
+                “The tools make it much faster to turn a video topic into
+                useful SEO ideas and a clear content plan.”
+              </p>
+
+              <div className="mt-6 border-t border-zinc-800 pt-5">
+                <p className="font-bold text-white">YouTube Creator</p>
+
+                <p className="mt-1 text-sm text-zinc-500">
+                  Video Content Creator
+                </p>
+              </div>
+            </div>
+
+            {/* REVIEW 3 */}
+            <div className="rounded-2xl border border-zinc-800 bg-[#0d1828] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-[0_0_30px_rgba(6,182,212,0.08)]">
+              <div className="text-lg tracking-wide text-yellow-400">
+                ★★★★★
+              </div>
+
+              <p className="mt-5 text-base leading-7 text-zinc-300">
+                “Useful when I need quick keyword, title and content ideas
+                without spending a lot of time researching manually.”
+              </p>
+
+              <div className="mt-6 border-t border-zinc-800 pt-5">
+                <p className="font-bold text-white">YouTube Creator</p>
+
+                <p className="mt-1 text-sm text-zinc-500">
+                  Creator Tools User
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Disclaimer */}
+          <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-5 text-zinc-600">
+            Sample creator feedback shown for layout purposes. Replace these
+            with verified user testimonials as your creator community grows.
+          </p>
+        </div>
+      </section>
+
+      {/* =========================================================
           YOUTUBE CREATOR TOOLS
       ========================================================= */}
       <section

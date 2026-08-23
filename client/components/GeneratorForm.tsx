@@ -20,9 +20,13 @@ export default function GeneratorForm({
   const [loading, setLoading] = useState(false);
 
   async function generate() {
-    if (!topic.trim()) return;
+    if (!topic.trim()) {
+      alert("Please provide a topic or prompt.");
+      return;
+    }
 
     setLoading(true);
+    setResults([]);
 
     try {
       const response = await fetch("/api/generate", {
@@ -32,20 +36,66 @@ export default function GeneratorForm({
         },
         body: JSON.stringify({
           type: aiType,
-          input: topic,
+          input: topic.trim(),
         }),
       });
 
       const data = await response.json();
 
+      console.log("AI API Response:", data);
+
       if (!response.ok) {
-        alert(data.error || "Something went wrong");
+        alert(
+          data?.error ||
+            data?.message ||
+            "Something went wrong while generating."
+        );
         return;
       }
 
-      setResults(data.results);
+      /*
+       * Make sure results is always an array.
+       * This prevents:
+       * Cannot read properties of undefined (reading 'length')
+       */
+
+      let generatedResults: string[] = [];
+
+      if (Array.isArray(data?.results)) {
+        generatedResults = data.results
+          .map((item: unknown) => String(item))
+          .filter((item: string) => item.trim().length > 0);
+      } else if (typeof data?.results === "string") {
+        generatedResults = data.results
+          .split("\n")
+          .map((item: string) => item.trim())
+          .filter((item: string) => item.length > 0);
+      } else if (Array.isArray(data?.result)) {
+        generatedResults = data.result
+          .map((item: unknown) => String(item))
+          .filter((item: string) => item.trim().length > 0);
+      } else if (typeof data?.result === "string") {
+        generatedResults = data.result
+          .split("\n")
+          .map((item: string) => item.trim())
+          .filter((item: string) => item.length > 0);
+      } else if (typeof data?.content === "string") {
+        generatedResults = data.content
+          .split("\n")
+          .map((item: string) => item.trim())
+          .filter((item: string) => item.length > 0);
+      }
+
+      if (generatedResults.length === 0) {
+        alert(
+          "AI returned no results. Please check the Generate API response."
+        );
+        return;
+      }
+
+      setResults(generatedResults);
     } catch (error) {
-      console.error(error);
+      console.error("AI Generation Error:", error);
       alert("AI Generation Failed");
     } finally {
       setLoading(false);
@@ -53,8 +103,13 @@ export default function GeneratorForm({
   }
 
   async function copy(text: string) {
-    await navigator.clipboard.writeText(text);
-    alert("Copied!");
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("Copied!");
+    } catch (error) {
+      console.error("Copy failed:", error);
+      alert("Unable to copy.");
+    }
   }
 
   return (
@@ -67,14 +122,19 @@ export default function GeneratorForm({
         <input
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !loading) {
+              generate();
+            }
+          }}
           placeholder={placeholder}
-          className="flex-1 rounded-xl border border-zinc-700 bg-zinc-900 p-4 text-white outline-none"
+          className="flex-1 rounded-xl border border-zinc-700 bg-zinc-900 p-4 text-white outline-none focus:border-cyan-500"
         />
 
         <button
           onClick={generate}
           disabled={loading}
-          className="rounded-xl bg-cyan-500 px-8 font-bold text-black transition hover:bg-cyan-400 disabled:opacity-50"
+          className="rounded-xl bg-cyan-500 px-8 font-bold text-black transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? "Generating..." : "Generate"}
         </button>
@@ -88,22 +148,23 @@ export default function GeneratorForm({
 
               return (
                 <div
-                  key={index}
-                  className="flex items-center justify-between rounded-xl border border-zinc-700 bg-zinc-900 p-5"
+                  key={`${item}-${index}`}
+                  className="flex items-center justify-between gap-6 rounded-xl border border-zinc-700 bg-zinc-900 p-5"
                 >
-                  <div>
-                    <p className="text-lg font-semibold">
+                  <div className="min-w-0">
+                    <p className="text-lg font-semibold text-white">
                       {item}
                     </p>
 
                     <p className="mt-2 text-sm text-zinc-400">
-                      SEO Score: {seoScore}/100 • CTR: {getCTR(seoScore)}
+                      SEO Score: {seoScore}/100 • CTR:{" "}
+                      {getCTR(seoScore)}
                     </p>
                   </div>
 
                   <button
                     onClick={() => copy(item)}
-                    className="rounded-lg bg-cyan-500 px-4 py-2 font-semibold text-black transition hover:bg-cyan-400"
+                    className="shrink-0 rounded-lg bg-cyan-500 px-4 py-2 font-semibold text-black transition hover:bg-cyan-400"
                   >
                     Copy
                   </button>
