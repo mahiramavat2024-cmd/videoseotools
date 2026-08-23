@@ -252,9 +252,7 @@ CAPTION:
     <main className="min-h-screen bg-[#08111f] px-6 py-16 text-white">
       <div className="mx-auto max-w-6xl">
 
-        {/* =========================================================
-            HEADER
-        ========================================================= */}
+        {/* HEADER */}
 
         <div className="text-center">
 
@@ -273,17 +271,13 @@ CAPTION:
 
         </div>
 
-        {/* =========================================================
-            GENERATOR
-        ========================================================= */}
+        {/* GENERATOR */}
 
         <div className="mx-auto mt-12 max-w-5xl rounded-2xl border border-zinc-800 bg-[#0d1828] p-6 md:p-8">
 
           <h2 className="mb-6 text-center text-3xl font-bold">
             Create Your Reel Script
           </h2>
-
-          {/* Topic */}
 
           <label className="mb-3 block text-sm font-semibold text-zinc-300">
             What is your Reel about?
@@ -301,13 +295,9 @@ CAPTION:
             className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-5 py-4 text-white outline-none transition placeholder:text-zinc-500 focus:border-pink-500 focus:ring-1 focus:ring-pink-500/20"
           />
 
-          {/* =========================================================
-              OPTIONS
-          ========================================================= */}
+          {/* OPTIONS */}
 
           <div className="mt-6 grid gap-5 md:grid-cols-2">
-
-            {/* Duration */}
 
             <div>
               <label className="mb-2 block text-sm font-semibold text-zinc-300">
@@ -325,8 +315,6 @@ CAPTION:
               </select>
             </div>
 
-            {/* Language */}
-
             <div>
               <label className="mb-2 block text-sm font-semibold text-zinc-300">
                 🌐 Language
@@ -343,8 +331,6 @@ CAPTION:
               </select>
             </div>
 
-            {/* Hook */}
-
             <div>
               <label className="mb-2 block text-sm font-semibold text-zinc-300">
                 🪝 Hook Style
@@ -360,8 +346,6 @@ CAPTION:
                 ))}
               </select>
             </div>
-
-            {/* Visual */}
 
             <div>
               <label className="mb-2 block text-sm font-semibold text-zinc-300">
@@ -381,7 +365,7 @@ CAPTION:
 
           </div>
 
-          {/* Generate */}
+          {/* GENERATE */}
 
           <button
             onClick={generateScript}
@@ -395,14 +379,10 @@ CAPTION:
 
         </div>
 
-        {/* =========================================================
-            RESULTS
-        ========================================================= */}
+        {/* RESULTS */}
 
         {result && (
           <div className="mx-auto mt-10 max-w-5xl space-y-5">
-
-            {/* Title */}
 
             {result.title && (
               <ResultCard
@@ -412,8 +392,6 @@ CAPTION:
               />
             )}
 
-            {/* Hook */}
-
             {result.hook && (
               <ResultCard
                 title="🪝 HOOK"
@@ -421,8 +399,6 @@ CAPTION:
                 onCopy={copyText}
               />
             )}
-
-            {/* Complete Script */}
 
             {result.script && (
               <ResultCard
@@ -433,8 +409,6 @@ CAPTION:
               />
             )}
 
-            {/* CTA */}
-
             {result.cta && (
               <ResultCard
                 title="📢 CTA"
@@ -442,8 +416,6 @@ CAPTION:
                 onCopy={copyText}
               />
             )}
-
-            {/* Caption */}
 
             {result.caption && (
               <ResultCard
@@ -456,9 +428,7 @@ CAPTION:
           </div>
         )}
 
-        {/* =========================================================
-            INFO SECTION
-        ========================================================= */}
+        {/* INFO SECTION */}
 
         <section className="mx-auto mt-20 max-w-5xl border-t border-zinc-800 pt-12">
 
@@ -528,10 +498,6 @@ CAPTION:
     </main>
   );
 }
-
-/* =========================================================
-   RESULT CARD
-========================================================= */
 
 function ResultCard({
   title,
