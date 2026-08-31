@@ -5,6 +5,8 @@ import "./globals.css";
 
 const GA_ID = "G-1T6JD7PHFR";
 
+const ADSENSE_CLIENT = "ca-pub-3217840945593614";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -61,6 +63,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -82,12 +85,18 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "VideoSEOTools - Free AI YouTube SEO Tools",
+
     description:
       "Generate AI-powered YouTube titles, descriptions, tags, hashtags, hooks and scripts for better rankings.",
+
     url: "https://videoseotools.com",
+
     siteName: "VideoSEOTools",
+
     locale: "en_US",
+
     type: "website",
+
     images: [
       {
         url: "/og-image.png",
@@ -100,8 +109,11 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
+
     title: "VideoSEOTools",
+
     description: "Free AI SEO Tools for YouTube Creators.",
+
     images: ["/og-image.png"],
   },
 
@@ -123,9 +135,17 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
+        {/* Bing Webmaster Verification */}
         <meta
           name="msvalidate.01"
           content="0B6E44BBB9CE05ADAA0F797AE1CB0936"
+        />
+
+        {/* Google AdSense */}
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
         />
       </head>
 
@@ -144,8 +164,13 @@ export default function RootLayout({
         >
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+
             gtag('js', new Date());
+
             gtag('config', '${GA_ID}');
           `}
         </Script>
